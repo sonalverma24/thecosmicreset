@@ -17,7 +17,7 @@ window.TCR_CONFIG = {
 
   /* 2) GOOGLE SHEET: paste the Web App URL from your Apps Script deployment.
         Leave blank to keep subscribe as an on-screen confirmation only. */
-  sheetsEndpoint: "",
+  sheetsEndpoint: "https://script.google.com/macros/s/AKfycbxEIqVWY7-jDlDuScq4BdJTLfTnb2hMS-HsR243CM5DmndFJaTiq5vTFHnrNhdLGDKP/exec",
 
   /* 2b) HOSTED PAYMENT BUTTONS (no Key ID needed).
         Create a fixed-amount payment link for each price (Razorpay Payment Link/
