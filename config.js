@@ -39,7 +39,8 @@ window.TCR_CONFIG = {
   paymentButtons: {
     1: "pl_TNjjy7SEWYvDWf",   // $1 quick reads
     12: "pl_TNjl6N1pTg37o1",  // $12 journals
-    // 19 and 29 launch later
+    19: "pl_TNlQdBwpJCni8E",  // $19 personalized single-focus guides
+    29: "pl_TNlT79W9PTeuAR",  // $29 full chart reading
   },
 
   /* 3) OPTIONAL: external astrology API for certified-exact charts.
