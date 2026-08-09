@@ -3,16 +3,16 @@
 Personalized sidereal astrology guides, journals and quick reads. Static site (HTML/CSS/JS), no build step.
 
 ## Pages
-- `index.html` — home: hero, free sidereal chart calculator + guide waitlist, Instagram, reviews
-- `shop.html` — the marketplace (guides, journals, quick reads)
-- `past.html` — "past lives" coming-soon + waitlist
+- `index.html`: home: hero, free sidereal chart calculator + guide waitlist, Instagram, reviews
+- `shop.html`: the marketplace (guides, journals, quick reads)
+- `past.html`: "past lives" coming-soon + waitlist
 
 ## Configure (the only file you edit)
 `config.js`:
-- `paymentButtons` — Razorpay Payment Button ids by amount ($1, $12 live)
-- `paymentLinks` — optional hosted payment links by amount (fallback)
-- `razorpayKeyId` — optional, for in-page checkout instead of buttons
-- `sheetsEndpoint` — Google Apps Script web-app URL (orders + waitlist to your Sheet)
+- `paymentButtons`: Razorpay Payment Button ids by amount ($1, $12 live)
+- `paymentLinks`: optional hosted payment links by amount (fallback)
+- `razorpayKeyId`: optional, for in-page checkout instead of buttons
+- `sheetsEndpoint`: Google Apps Script web-app URL (orders + waitlist to your Sheet)
 - prices/products in `TCR_SHOP`, `TCR_PRODUCTS`, `TCR_PERSONALIZED`
 
 See `SETUP.md` for the Sheet + payment setup steps.
