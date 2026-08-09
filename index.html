@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Cosmic Reset · Personalized Sidereal astrology guides</title>
+  <meta name="description" content="Personalized Sidereal astrology guides built from your exact birth chart. Your Moon, Rising and houses decoded into career, love, health and money. Delivered worldwide in 24 hours." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ================= NAV ================= -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a class="wordmark" href="#top" aria-label="The Cosmic Reset, home">
+        <span class="wordmark__the">THE</span>
+        <span class="wordmark__main">COSMIC RESET</span>
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#calc">Your chart</a>
+        <a href="#instagram">Instagram</a>
+        <a href="past.html">Past lives</a>
+        <a href="shop.html" class="nav__cta">Shop now</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ================= HERO ================= -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="wrap hero__inner">
+        <div class="hero__content">
+          <p class="eyebrow">Personalized sidereal astrology</p>
+          <h1 id="hero-title" class="hero__title">Get the guide to understanding your life better.</h1>
+          <p class="hero__sub">
+            A personalised astrology guide created to help you make sense of your
+            <span class="type"><span class="type__word" id="typeWord">career</span><span class="type__caret" aria-hidden="true">|</span></span>
+            and the patterns shaping your choices.
+          </p>
+          <p class="hero__micro">Specific to you. Practical to use. Ready in 24 hours.</p>
+          <div class="hero__actions">
+            <a href="#calc" class="btn btn--yellow">Get my personalised guide · from $19</a>
+            <a href="shop.html" class="btn btn--ghost">Shop astrology guides · from $1</a>
+          </div>
+          <ul class="trust">
+            <li>Personalised to your birth chart</li>
+            <li>Career, love, money and wellbeing decoded</li>
+            <li>Delivered worldwide within 24 hours</li>
+          </ul>
+        </div>
+
+        <div class="hero__wheel" aria-hidden="true">
+          <svg viewBox="0 0 440 440" preserveAspectRatio="xMidYMid meet">
+            <circle cx="220" cy="220" r="205" class="w-ring" />
+            <circle cx="220" cy="220" r="150" class="w-ring w-ring--faint" />
+            <circle cx="220" cy="220" r="150" class="w-ring w-ring--dash w-spin" />
+            <image class="w-img" href="assets/signs/aries.png"       x="200" y="25"  width="40" height="40" />
+            <image class="w-img" href="assets/signs/taurus.png"      x="288" y="48"  width="40" height="40" />
+            <image class="w-img" href="assets/signs/gemini.png"      x="352" y="112" width="40" height="40" />
+            <image class="w-img" href="assets/signs/cancer.png"      x="375" y="200" width="40" height="40" />
+            <image class="w-img" href="assets/signs/leo.png"         x="352" y="288" width="40" height="40" />
+            <image class="w-img" href="assets/signs/virgo.png"       x="288" y="352" width="40" height="40" />
+            <image class="w-img" href="assets/signs/libra.png"       x="200" y="375" width="40" height="40" />
+            <image class="w-img" href="assets/signs/scorpio.png"     x="112" y="352" width="40" height="40" />
+            <image class="w-img" href="assets/signs/sagittarius.png" x="48"  y="288" width="40" height="40" />
+            <image class="w-img" href="assets/signs/capricorn.png"   x="25"  y="200" width="40" height="40" />
+            <image class="w-img" href="assets/signs/aquarius.png"    x="48"  y="112" width="40" height="40" />
+            <image class="w-img" href="assets/signs/pisces.png"      x="112" y="48"  width="40" height="40" />
+            <g class="w-sun">
+              <circle cx="220" cy="220" r="16" />
+              <g class="w-rays">
+                <line x1="220" y1="188" x2="220" y2="176" /><line x1="220" y1="252" x2="220" y2="264" />
+                <line x1="188" y1="220" x2="176" y2="220" /><line x1="252" y1="220" x2="264" y2="220" />
+                <line x1="197" y1="197" x2="188" y2="188" /><line x1="243" y1="243" x2="252" y2="252" />
+                <line x1="243" y1="197" x2="252" y2="188" /><line x1="197" y1="243" x2="188" y2="252" />
+              </g>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CALCULATOR (Sidereal) + inline builder ================= -->
+    <section class="calc" id="calc" aria-labelledby="calc-title">
+      <div class="wrap calc__inner">
+        <p class="eyebrow eyebrow--dark">Calculate your chart</p>
+        <h2 id="calc-title" class="statement statement--sm">Your real placements, the sidereal way.</h2>
+        <p class="calc__sub">Enter your birth date, time and city. We compute your Sun, Moon, Rising and houses using sidereal astrology.</p>
+
+        <form class="calc__form" id="chartForm" novalidate>
+          <div class="field"><label for="bMonth">Month</label><select id="bMonth" required></select></div>
+          <div class="field field--sm"><label for="bDay">Day</label><select id="bDay" required></select></div>
+          <div class="field field--sm"><label for="bYear">Year</label><input id="bYear" type="number" inputmode="numeric" min="1900" max="2030" placeholder="1995" required /></div>
+          <div class="field field--sm"><label for="bTime">Time</label><input id="bTime" type="time" value="12:00" required /></div>
+          <div class="field field--place">
+            <label for="bPlace">Birth city</label>
+            <input id="bPlace" type="text" autocomplete="off" placeholder="Start typing a city" required />
+            <ul class="place-results" id="placeResults" hidden></ul>
+          </div>
+          <button type="submit" class="btn btn--yellow" id="chartBtn">Reveal my chart</button>
+        </form>
+        <p class="calc__hint">Don't know your exact time? Leave 12:00. Sun and Moon stay accurate; Rising is an estimate.</p>
+
+        <div class="chart" id="chartResult" hidden>
+          <div class="chart__grid">
+            <div class="chart__item"><span class="chart__glyph" id="rSunG" aria-hidden="true"></span><span class="chart__k">Sun</span><span class="chart__v" id="rSun"></span><span class="chart__note">who you are at the core</span></div>
+            <div class="chart__item"><span class="chart__glyph" id="rMoonG" aria-hidden="true"></span><span class="chart__k">Moon</span><span class="chart__v" id="rMoon"></span><span class="chart__note">how you feel &amp; self-soothe</span></div>
+            <div class="chart__item"><span class="chart__glyph" id="rRiseG" aria-hidden="true"></span><span class="chart__k">Rising (Lagna)</span><span class="chart__v" id="rRise"></span><span class="chart__note">how you meet the world</span></div>
+          </div>
+          <div class="chart__career">
+            <span class="chart__k">Your career house</span>
+            <p><strong>The 10th house</strong>, and the sign on it is <strong id="rCareer"></strong> <span id="rCareerG" aria-hidden="true"></span></p>
+            <span class="chart__note" id="rSrc">the energy your work runs on</span>
+          </div>
+
+          <!-- builder, inline (not a separate section) -->
+          <div class="chart__build" id="chartBuild">
+            <h3 class="chart__buildtitle">Turn this into your guide</h3>
+            <p class="chart__buildsub">Written from these exact placements and delivered to your inbox within 24 hours.</p>
+            <div class="buildrow">
+              <div class="field"><label for="pFocus">What should it cover?</label><select id="pFocus"></select></div>
+              <div class="field field--grow"><label for="pEmail">Email for delivery</label><input id="pEmail" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com" required /></div>
+            </div>
+            <div class="buildbuy">
+              <span class="buildprice" id="buildPrice">$29</span>
+              <button type="button" class="btn btn--yellow" id="buildBtn">Get my guide</button>
+            </div>
+            <div class="modal__rzp" id="buildRzp"></div>
+            <p class="buildnote" id="buildNote">Made to order · delivered within 24 hours · secure checkout.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TESTIMONIALS ================= -->
+    <section class="reviews" id="reviews" aria-labelledby="reviews-title">
+      <div class="wrap">
+        <header class="section-head section-head--center">
+          <p class="eyebrow eyebrow--dark">Reviews</p>
+          <h2 id="reviews-title" class="statement statement--sm">Read by people who don't usually buy this stuff.</h2>
+        </header>
+        <div class="reviews__grid">
+          <figure class="review">
+            <div class="review__stars" aria-label="5 out of 5">★★★★★</div>
+            <blockquote>"Scary accurate. It described my Moon so precisely I read it twice. Nothing generic in it."</blockquote>
+            <figcaption>Camila Rodrigues</figcaption>
+          </figure>
+          <figure class="review">
+            <div class="review__stars" aria-label="5 out of 5">★★★★★</div>
+            <blockquote>"I've bought readings before and they were vague. This one actually used my birth time and houses."</blockquote>
+            <figcaption>Daniel Carter</figcaption>
+          </figure>
+          <figure class="review">
+            <div class="review__stars" aria-label="5 out of 5">★★★★★</div>
+            <blockquote>"Ordered the career guide, got it the next morning. It named the exact pattern I keep repeating at work."</blockquote>
+            <figcaption>Amanda Goncalves</figcaption>
+          </figure>
+          <figure class="review">
+            <div class="review__stars" aria-label="5 out of 5">★★★★★</div>
+            <blockquote>"Calm and specific, not spooky. Felt like advice from someone who actually knew me."</blockquote>
+            <figcaption>Priya Nair</figcaption>
+          </figure>
+          <figure class="review">
+            <div class="review__stars" aria-label="5 out of 5">★★★★★</div>
+            <blockquote>"The Sidereal reading was different from every Sun-sign app I've tried. Worth far more than I paid."</blockquote>
+            <figcaption>Diogo Ribeiro</figcaption>
+          </figure>
+          <figure class="review">
+            <div class="review__stars" aria-label="5 out of 5">★★★★★</div>
+            <blockquote>"Bought one for me and one for my sister. Both of us felt seen. That never happens."</blockquote>
+            <figcaption>Sarah Mitchell</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= INSTAGRAM ================= -->
+    <section class="ig" id="instagram" aria-labelledby="ig-title">
+      <div class="wrap">
+        <header class="section-head section-head--center">
+          <p class="eyebrow eyebrow--dark">Instagram</p>
+          <h2 id="ig-title" class="statement statement--sm">Daily readings, @thecosmicreset.</h2>
+          <p class="section-head__sub">A lot of relatable, free content for your entertainment. Follow for more.</p>
+        </header>
+        <div class="ig__grid">
+          <a class="ig__tile ig__tile--photo" style="background-image:url('assets/insta/1.jpg')" href="https://www.instagram.com/p/DZp_RpdBVio/" target="_blank" rel="noopener" aria-label="View post on Instagram"><span class="ig__ov"></span></a>
+          <a class="ig__tile ig__tile--photo" style="background-image:url('assets/insta/2.jpg')" href="https://www.instagram.com/p/Dbuy3RUh7YG/" target="_blank" rel="noopener" aria-label="View post on Instagram"><span class="ig__ov"></span></a>
+          <a class="ig__tile ig__tile--photo" style="background-image:url('assets/insta/3.jpg')" href="https://www.instagram.com/p/DaiIgCUAY5L/" target="_blank" rel="noopener" aria-label="View post on Instagram"><span class="ig__ov"></span></a>
+          <a class="ig__tile ig__tile--photo" style="background-image:url('assets/insta/4.jpg')" href="https://www.instagram.com/p/DZrbZH2Blje/" target="_blank" rel="noopener" aria-label="View post on Instagram"><span class="ig__ov"></span></a>
+          <a class="ig__tile ig__tile--photo" style="background-image:url('assets/insta/5.jpg')" href="https://www.instagram.com/p/Dbrk7vJhxXN/" target="_blank" rel="noopener" aria-label="View post on Instagram"><span class="ig__ov"></span></a>
+          <a class="ig__tile ig__tile--photo" style="background-image:url('assets/insta/6.jpg')" href="https://www.instagram.com/p/DbvMzLageoQ/?img_index=1" target="_blank" rel="noopener" aria-label="View post on Instagram"><span class="ig__ov"></span></a>
+        </div>
+        <div class="ig__cta"><a class="btn btn--purple" href="https://instagram.com/thecosmicreset" target="_blank" rel="noopener">Follow @thecosmicreset</a></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <div class="footer__brand">
+        <span class="wordmark wordmark--footer">
+          <span class="wordmark__the">THE</span>
+          <span class="wordmark__main">COSMIC RESET</span>
+        </span>
+        <p class="footer__line">personalized sidereal guides · delivered worldwide</p>
+      </div>
+      <nav class="footer__nav" aria-label="Footer">
+        <a href="#calc">Your chart</a>
+        <a href="shop.html">Shop</a>
+        <a href="past.html">Past lives</a>
+        <a href="#reviews">Reviews</a>
+        <a href="https://instagram.com/thecosmicreset" rel="noopener">@thecosmicreset</a>
+      </nav>
+    </div>
+    <p class="footer__legal">© <span id="year"></span> The Cosmic Reset · thecosmicreset.shop</p>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script src="config.js"></script>
+  <script src="chart.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

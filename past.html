@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>What happened in your past? · The Cosmic Reset</title>
+  <meta name="description" content="What happened in your past life? Find out. A new Sidereal past-life reading from The Cosmic Reset. Coming soon." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <section class="past">
+    <a class="past__back" href="index.html">← Back</a>
+    <div class="past__in">
+      <span class="past__soon">Coming soon</span>
+      <h1>What happened<br />in your <span class="accent">past</span>?</h1>
+      <p class="past__sub">A sidereal past-life reading, drawn from your Moon's nodes and your birth chart. Find out who you were, and what you carried into this life.</p>
+
+      <form class="signup" id="signup" novalidate>
+        <label class="sr-only" for="email">Email address</label>
+        <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com" required />
+        <button type="submit" class="btn btn--yellow">Notify me</button>
+      </form>
+      <p class="signup__note" id="signup-note" role="status" style="color:var(--white-70)">Be first to know when it opens.</p>
+    </div>
+  </section>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="config.js"></script>
+  <script>
+    (function () {
+      var CFG = window.TCR_CONFIG || {};
+      var form = document.getElementById("signup"), note = document.getElementById("signup-note");
+      form.addEventListener("submit", function (ev) {
+        ev.preventDefault();
+        var input = document.getElementById("email"), val = (input.value || "").trim();
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(val)) { note.textContent = "Enter a valid email."; input.focus(); return; }
+        if (CFG.sheetsEndpoint) fetch(CFG.sheetsEndpoint, { method: "POST", mode: "no-cors", body: new URLSearchParams({ type: "subscriber", email: val, source: "past-lives waitlist", ts: new Date().toISOString() }) }).catch(function () {});
+        note.textContent = "You're on the list. We'll email you the moment past-life readings open. ✦";
+        form.reset();
+      });
+    })();
+  </script>
+</body>
+</html>

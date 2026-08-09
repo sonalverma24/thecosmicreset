@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shop · The Cosmic Reset</title>
+  <meta name="description" content="Personalized Sidereal astrology guides, journals and quick reads. Buy a guide, add your birth details, and get the correct reading delivered within 24 hours." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a class="wordmark" href="index.html" aria-label="The Cosmic Reset, home">
+        <span class="wordmark__the">THE</span>
+        <span class="wordmark__main">COSMIC RESET</span>
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="index.html#calc">Your chart</a>
+        <a href="past.html">Past lives</a>
+        <a href="index.html#calc" class="nav__cta">Free chart</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="shop-hero">
+      <div class="wrap shop-hero__in">
+        <h1>The Guide Shop</h1>
+        <p>Personalized Sidereal guides, journals and quick reads. Delivered to your inbox.</p>
+      </div>
+    </section>
+
+    <div class="tabs"><div class="tabs__in" id="tabs"></div></div>
+
+    <section class="shopwrap">
+      <div class="wrap"><div class="pgrid" id="pgrid"></div></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <div class="footer__brand">
+        <span class="wordmark wordmark--footer"><span class="wordmark__the">THE</span><span class="wordmark__main">COSMIC RESET</span></span>
+        <p class="footer__line">personalized sidereal guides · delivered worldwide</p>
+      </div>
+      <nav class="footer__nav" aria-label="Footer">
+        <a href="index.html">Home</a>
+        <a href="index.html#calc">Your chart</a>
+        <a href="past.html">Past lives</a>
+        <a href="https://instagram.com/thecosmicreset" rel="noopener">@thecosmicreset</a>
+      </nav>
+    </div>
+    <p class="footer__legal">© <span id="year"></span> The Cosmic Reset · thecosmicreset.shop</p>
+  </footer>
+
+  <!-- buy modal -->
+  <div class="modal" id="buyModal" hidden aria-modal="true" role="dialog">
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__card">
+      <button class="modal__x" data-close aria-label="Close">×</button>
+      <p class="modal__eyebrow" id="mCat"></p>
+      <h3 class="modal__title" id="mTitle"></h3>
+      <p class="modal__price" id="mPrice"></p>
+
+      <div class="modal__birth" id="mBirth" hidden>
+        <p class="modal__hint">Enter your birth details so we build the correct guide for your chart.</p>
+        <div class="mrow">
+          <div class="field"><label for="mMonth">Month</label><select id="mMonth"></select></div>
+          <div class="field"><label for="mDay">Day</label><select id="mDay"></select></div>
+          <div class="field"><label for="mYear">Year</label><input id="mYear" type="number" inputmode="numeric" min="1900" max="2030" placeholder="1995" /></div>
+          <div class="field"><label for="mTime">Time</label><input id="mTime" type="time" value="12:00" /></div>
+        </div>
+        <div class="field field--place">
+          <label for="mPlace">Birth city</label>
+          <input id="mPlace" type="text" autocomplete="off" placeholder="Start typing a city" />
+          <ul class="place-results" id="mPlaceResults" hidden></ul>
+        </div>
+      </div>
+
+      <div class="field"><label for="mEmail">Email for delivery</label><input id="mEmail" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com" /></div>
+      <button class="btn btn--yellow" id="mBuy">Continue to payment</button>
+      <div class="modal__rzp" id="mRzp"></div>
+      <p class="modal__note" id="mNote"></p>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script src="config.js"></script>
+  <script src="chart.js"></script>
+  <script src="shop.js"></script>
+</body>
+</html>
