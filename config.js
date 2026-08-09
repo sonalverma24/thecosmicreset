@@ -73,19 +73,19 @@ window.TCR_PERSONALIZED = {
    tag: optional badge. motif: which built-in graphic to show on the card.
    ============================================================ */
 window.TCR_SHOP = [
-  { id: "sh-full",    cat: "Personalized guides", title: "Full Chart Reading",        price: 29, personalized: true,  tag: "Bestseller", motif: "sun",   desc: "Your entire Sidereal chart, read end to end: Sun, Moon, Rising, all twelve houses." },
-  { id: "sh-career",  cat: "Personalized guides", title: "Career & Money Guide",      price: 19, personalized: true,  tag: "",           motif: "saturn",desc: "Your 10th house, work style, and money patterns, decoded for the real you." },
-  { id: "sh-love",    cat: "Personalized guides", title: "Love & Relationships Guide",price: 19, personalized: true,  tag: "",           motif: "venus", desc: "How you attach, clash and repair, read from your Venus, Moon and 7th house." },
-  { id: "sh-health",  cat: "Personalized guides", title: "Health & Wellness Guide",   price: 19, personalized: true,  tag: "",           motif: "moon",  desc: "Energy, stress and the body's patterns, mapped to your chart." },
-  { id: "sh-purpose", cat: "Personalized guides", title: "Purpose & Direction Guide", price: 19, personalized: true,  tag: "",           motif: "star",  desc: "Your nodes, 9th and 10th houses: where you're actually headed." },
-  { id: "sh-year",    cat: "Personalized guides", title: "Year Ahead Guide",          price: 19, personalized: true,  tag: "New",        motif: "orbit", desc: "The transits shaping your next twelve months, personalised to your chart." },
+  { id: "sh-full",    cat: "Personalized guides", title: "Full Chart Reading",        price: 29, personalized: true,  tag: "Bestseller", image: "assets/graphics/g01.jpg", desc: "Your entire Sidereal chart, read end to end: Sun, Moon, Rising, all twelve houses." },
+  { id: "sh-career",  cat: "Personalized guides", title: "Career & Money Guide",      price: 19, personalized: true,  tag: "",           image: "assets/graphics/g02.jpg", desc: "Your 10th house, work style, and money patterns, decoded for the real you." },
+  { id: "sh-love",    cat: "Personalized guides", title: "Love & Relationships Guide",price: 19, personalized: true,  tag: "",           image: "assets/graphics/g03.jpg", desc: "How you attach, clash and repair, read from your Venus, Moon and 7th house." },
+  { id: "sh-health",  cat: "Personalized guides", title: "Health & Wellness Guide",   price: 19, personalized: true,  tag: "",           image: "assets/graphics/g04.jpg", desc: "Energy, stress and the body's patterns, mapped to your chart." },
+  { id: "sh-purpose", cat: "Personalized guides", title: "Purpose & Direction Guide", price: 19, personalized: true,  tag: "",           image: "assets/graphics/g05.jpg", desc: "Your nodes, 9th and 10th houses: where you're actually headed." },
+  { id: "sh-year",    cat: "Personalized guides", title: "Year Ahead Guide",          price: 19, personalized: true,  tag: "New",        image: "assets/graphics/g06.jpg", desc: "The transits shaping your next twelve months, personalised to your chart." },
 
-  { id: "jr-reset",   cat: "Journals", title: "The Sun-Sign Reset Journal", price: 12, personalized: false, tag: "",     image: "assets/journals/reset.jpg",  desc: "Ninety days of prompts tuned to your patterns. Printable, reusable." },
-  { id: "jr-moon",    cat: "Journals", title: "The Moon Cycle Journal",     price: 12, personalized: false, tag: "",     image: "assets/journals/moon.jpg",   desc: "Plan and reflect with the lunar month, new moon to full." },
-  { id: "jr-shadow",  cat: "Journals", title: "The Shadow Work Journal",    price: 12, personalized: false, tag: "",     image: "assets/journals/shadow.jpg", desc: "Deep prompts for honest, quiet reflection." },
+  { id: "jr-reset",   cat: "Journals", title: "The Sun-Sign Reset Journal", price: 12, personalized: false, tag: "", image: "assets/graphics/g07.jpg", desc: "Ninety days of prompts tuned to your patterns. Printable, reusable." },
+  { id: "jr-moon",    cat: "Journals", title: "The Moon Cycle Journal",     price: 12, personalized: false, tag: "", image: "assets/graphics/g08.jpg", desc: "Plan and reflect with the lunar month, new moon to full." },
+  { id: "jr-shadow",  cat: "Journals", title: "The Shadow Work Journal",    price: 12, personalized: false, tag: "", image: "assets/graphics/g09.jpg", desc: "Deep prompts for honest, quiet reflection." },
 
-  { id: "qg-wdylyt",  cat: "Quick reads", title: "Why Do You Love Like That", price: 1, personalized: false, tag: "", motif: "venus", desc: "Your relationship pattern on one page. Instant read." },
-  { id: "qg-decoder", cat: "Quick reads", title: "The Situationship Decoder", price: 1, personalized: false, tag: "", motif: "venus", desc: "His Venus sign vs. whether he'll ever commit." },
+  { id: "qg-wdylyt",  cat: "Quick reads", title: "Why Do You Love Like That", price: 1, personalized: false, tag: "", image: "assets/graphics/g10.jpg", desc: "Your relationship pattern on one page. Instant read." },
+  { id: "qg-decoder", cat: "Quick reads", title: "The Situationship Decoder", price: 1, personalized: false, tag: "", image: "assets/graphics/g14.jpg", desc: "His Venus sign vs. whether he'll ever commit." },
 ];
 
 /* ============================================================
