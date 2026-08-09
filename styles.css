@@ -74,7 +74,11 @@ a { color: inherit; text-decoration: none; }
 .nav.is-scrolled { background: rgba(255,255,255,0.72); backdrop-filter: saturate(160%) blur(18px); -webkit-backdrop-filter: saturate(160%) blur(18px); border-bottom-color: var(--purple-14); }
 .nav .wordmark, .nav__links a { color: var(--white); transition: color 0.4s var(--ease); }
 .nav.is-scrolled .wordmark, .nav.is-scrolled .nav__links a { color: var(--purple); }
-.wordmark { display: inline-flex; align-items: baseline; gap: 0.5em; line-height: 1; }
+.wordmark { display: inline-flex; align-items: center; gap: 0.55em; line-height: 1; }
+.wordmark__mark { width: 27px; height: 27px; flex: none; filter: drop-shadow(0 1px 1.5px rgba(0,0,0,0.30)); }
+.nav.is-scrolled .wordmark__mark { filter: drop-shadow(0 1px 1px rgba(44,10,113,0.22)); }
+.wordmark__the, .wordmark__main { text-shadow: 0 1px 1px rgba(0,0,0,0.22); }
+.nav.is-scrolled .wordmark__the, .nav.is-scrolled .wordmark__main { text-shadow: 0 1px 0 rgba(255,255,255,0.6); }
 .wordmark__the { font-size: 0.62rem; font-weight: 500; letter-spacing: 0.34em; opacity: 0.75; }
 .wordmark__main { font-size: 1.02rem; font-weight: 700; letter-spacing: 0.02em; }
 .nav__links { display: flex; align-items: center; gap: clamp(14px, 2.2vw, 30px); }
@@ -113,25 +117,36 @@ a { color: inherit; text-decoration: none; }
 .trust li { position: relative; font-size: 0.82rem; color: var(--white-70); padding-left: 20px; }
 .trust li::before { content: "✦"; position: absolute; left: 0; color: var(--yellow); font-size: 0.7rem; top: 1px; }
 
-/* zodiac wheel */
-.hero__wheel { position: relative; display: grid; place-items: center; }
-.hero__wheel::before {
-  content: ""; position: absolute; width: 74%; aspect-ratio: 1; border-radius: 50%; z-index: 0;
-  background: radial-gradient(circle, rgba(255,222,89,0.20), rgba(255,222,89,0.06) 45%, transparent 70%);
-  filter: blur(14px);
-}
-.hero__wheel svg { position: relative; z-index: 1; width: min(460px, 92%); height: auto; overflow: visible; }
-.w-ring { fill: none; stroke: var(--white); stroke-width: 1; opacity: 0.18; }
-.w-ring--faint { opacity: 0.10; }
-.w-ring--dash { stroke: var(--white); opacity: 0.28; stroke-dasharray: 2 10; stroke-linecap: round; transform-box: view-box; transform-origin: 220px 220px; }
-.w-img { filter: invert(1); opacity: 0.92; }
-.w-sun circle { fill: var(--yellow); }
-.w-rays line { stroke: var(--yellow); stroke-width: 2; stroke-linecap: round; }
+/* hero art (brand graphic blended into the purple background) */
+.hero__art { position: relative; display: grid; place-items: center; }
+.hero__art > * { grid-column: 1; grid-row: 1; }
+.hero__art-aura { position: relative; z-index: 2; width: min(560px, 106%); aspect-ratio: 1; overflow: visible; pointer-events: none; }
+.aura-ring { fill: none; stroke: rgba(255,255,255,0.20); stroke-width: 0.4; }
+.aura-ring--dash { stroke: rgba(255,222,89,0.32); stroke-dasharray: 0.5 2.6; stroke-linecap: round; stroke-width: 0.5; }
+.aura-dot { fill: var(--yellow); }
+.aura-dot--white { fill: rgba(255,255,255,0.75); }
+.aura-spin-cw, .aura-spin-ccw { transform-box: view-box; transform-origin: 50px 50px; }
 @media (prefers-reduced-motion: no-preference) {
-  .w-spin { animation: wspin 90s linear infinite; }
-  @keyframes wspin { to { transform: rotate(360deg); } }
-  .w-sun { transform-box: view-box; transform-origin: 220px 220px; animation: pulse 6s var(--ease) infinite; }
-  @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+  .aura-spin-cw { animation: aspin 46s linear infinite; }
+  .aura-spin-ccw { animation: aspin 72s linear infinite reverse; }
+  @keyframes aspin { to { transform: rotate(360deg); } }
+}
+.hero__art-glow {
+  position: absolute; width: 78%; aspect-ratio: 1; border-radius: 50%; z-index: 0;
+  background: radial-gradient(circle, rgba(255,222,89,0.22), rgba(120,80,220,0.14) 42%, transparent 70%);
+  filter: blur(26px);
+}
+.hero__art-img {
+  position: relative; z-index: 1; width: min(520px, 98%); height: auto; display: block;
+  filter: saturate(1.14) brightness(1.06) contrast(1.03);
+  -webkit-mask: radial-gradient(circle at 50% 47%, #000 46%, rgba(0,0,0,0.55) 62%, transparent 76%);
+  mask: radial-gradient(circle at 50% 47%, #000 46%, rgba(0,0,0,0.55) 62%, transparent 76%);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero__art-img { animation: floaty 7.5s var(--ease) infinite; }
+  @keyframes floaty { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-14px) rotate(0.6deg); } }
+  .hero__art-glow { animation: glowpulse 6s var(--ease) infinite; }
+  @keyframes glowpulse { 0%,100% { opacity: 0.7; transform: scale(1); } 50% { opacity: 1; transform: scale(1.06); } }
 }
 
 /* ============================================================ FORM FIELDS (shared) */
@@ -432,13 +447,13 @@ a { color: inherit; text-decoration: none; }
 
 /* ============================================================ RESPONSIVE */
 @media (max-width: 900px) {
-  /* wheel becomes a faint top-right accent so the headline + CTA get the prime space */
+  /* art becomes a faint top-right accent so the headline + CTA get the prime space */
   .hero { padding-top: clamp(92px, 15vh, 130px); }
   .hero__inner { grid-template-columns: 1fr; }
   .hero__content { position: relative; z-index: 2; }
-  .hero__wheel { position: absolute; top: -24px; right: -96px; width: 300px; margin: 0; opacity: 0.22; pointer-events: none; }
-  .hero__wheel svg { width: 300px; }
-  .hero__wheel::before { display: none; }
+  .hero__art { position: absolute; top: -30px; right: -120px; width: 360px; margin: 0; opacity: 0.30; pointer-events: none; }
+  .hero__art-img { width: 360px; }
+  .hero__art-glow { display: none; }
   .how__grid { grid-template-columns: repeat(2, 1fr); }
   .faq__inner { grid-template-columns: 1fr; }
   .signbar { grid-template-columns: repeat(3, 1fr); }
@@ -448,6 +463,8 @@ a { color: inherit; text-decoration: none; }
   .nav__links a:not(.nav__cta) { display: none; }
   .calc__form { flex-direction: column; align-items: stretch; }
   .field select { width: 100%; }
+  /* stop flex-basis from forcing the place field 240px tall (it pushed the city list far below) */
+  .field--sm, .field--place { flex: 0 0 auto; }
   .how__grid { grid-template-columns: 1fr; }
   .signup { flex-direction: column; border-radius: 22px; padding: 12px; }
   .signup .btn { justify-content: center; }
