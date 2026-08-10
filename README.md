@@ -1,9 +1,9 @@
 # The Cosmic Reset
 
-Personalized sidereal astrology guides, journals and quick reads. Static site (HTML/CSS/JS), no build step.
+Personalized astrology guides, journals and quick reads. Static site (HTML/CSS/JS), no build step.
 
 ## Pages
-- `index.html`: home: hero, free sidereal chart calculator + guide waitlist, Instagram, reviews
+- `index.html`: home: hero, free chart calculator + guide waitlist, Instagram, reviews
 - `shop.html`: the marketplace (guides, journals, quick reads)
 - `past.html`: "past lives" coming-soon + waitlist
 

@@ -80,7 +80,7 @@ window.TCR_PERSONALIZED = {
    tag: optional badge. motif: which built-in graphic to show on the card.
    ============================================================ */
 window.TCR_SHOP = [
-  { id: "sh-full",    cat: "Personalized guides", title: "Full Chart Reading",        price: 29, personalized: true,  tag: "Bestseller", image: "assets/graphics/g01.jpg", desc: "Your entire Sidereal chart, read end to end: Sun, Moon, Rising, all twelve houses." },
+  { id: "sh-full",    cat: "Personalized guides", title: "Full Chart Reading",        price: 29, personalized: true,  tag: "Bestseller", image: "assets/graphics/g01.jpg", desc: "Your entire birth chart, read end to end: Sun, Moon, Rising, all twelve houses." },
   { id: "sh-career",  cat: "Personalized guides", title: "Career & Money Guide",      price: 19, personalized: true,  tag: "",           image: "assets/graphics/g02.jpg", desc: "Your 10th house, work style, and money patterns, decoded for the real you." },
   { id: "sh-love",    cat: "Personalized guides", title: "Love & Relationships Guide",price: 19, personalized: true,  tag: "",           image: "assets/graphics/g03.jpg", desc: "How you attach, clash and repair, read from your Venus, Moon and 7th house." },
   { id: "sh-health",  cat: "Personalized guides", title: "Health & Wellness Guide",   price: 19, personalized: true,  tag: "",           image: "assets/graphics/g04.jpg", desc: "Energy, stress and the body's patterns, mapped to your chart." },

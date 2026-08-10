@@ -165,7 +165,7 @@
         var rise = signOf(j.ascendant != null ? j.ascendant : j.rising);
         return {
           sun: signOf(j.sun), moon: signOf(j.moon), rising: rise,
-          career: signByIndex(rise.index + 9), careerHouse: 10, system: "vedic", source: "api"
+          career: signByIndex(rise.index + 9), careerHouse: 10, system: "tropical", source: "api"
         };
       });
     }
@@ -173,17 +173,15 @@
     var utc = wallToUTC(date.y, date.m, date.d, date.h, date.min, place.tz);
     var hourUT = utc.getUTCHours() + utc.getUTCMinutes() / 60 + utc.getUTCSeconds() / 3600;
     var JD = julianDay(utc.getUTCFullYear(), utc.getUTCMonth() + 1, utc.getUTCDate(), hourUT);
-    var ang = angles(JD, place.lon, place.lat);
-    var ay = ayanamsa(JD);
-    function sid(x) { return norm360(x - ay); }        // tropical -> Vedic sidereal
-    var rising = signOf(sid(ang.asc));
+    var ang = angles(JD, place.lon, place.lat);        // tropical (Western)
+    var rising = signOf(ang.asc);
     return Promise.resolve({
-      sun: signOf(sid(sunLongitude(JD))),
-      moon: signOf(sid(moonLongitude(JD))),
+      sun: signOf(sunLongitude(JD)),
+      moon: signOf(moonLongitude(JD)),
       rising: rising,
-      career: signByIndex(rising.index + 9),           // 10th house, whole-sign (Vedic)
+      career: signByIndex(rising.index + 9),           // 10th house, whole-sign
       careerHouse: 10,
-      system: "vedic",
+      system: "tropical",
       source: "builtin"
     });
   }
@@ -267,10 +265,9 @@
     var utc = wallToUTC(date.y, date.m, date.d, date.h, date.min, place.tz);
     var hourUT = utc.getUTCHours() + utc.getUTCMinutes() / 60 + utc.getUTCSeconds() / 3600;
     var JD = julianDay(utc.getUTCFullYear(), utc.getUTCMonth() + 1, utc.getUTCDate(), hourUT);
-    var d = JD - 2451543.5, ay = ayanamsa(JD);
-    function sid(x) { return norm360(x - ay); }
-    var ang = angles(JD, place.lon, place.lat);
-    var ascS = signOf(sid(ang.asc)), mcS = signOf(sid(ang.mc));
+    var d = JD - 2451543.5;
+    var ang = angles(JD, place.lon, place.lat);        // tropical (Western)
+    var ascS = signOf(ang.asc), mcS = signOf(ang.mc);
     var ascIdx = ascS.index;
 
     var g0 = geoLon(d), g1 = geoLon(d + 1);          // +1 day for retrograde direction
@@ -288,7 +285,7 @@
     }; trop1.Ketu = norm360(trop1.Rahu + 180);
 
     var bodies = order.map(function (name) {
-      var sl = sid(trop[name]), s = signOf(sl);
+      var sl = trop[name], s = signOf(sl);
       var diff = ((trop1[name] - trop[name] + 540) % 360) - 180;   // daily motion, signed
       var retro = (name === "Rahu" || name === "Ketu") ? true : (diff < 0);
       return {
@@ -302,7 +299,7 @@
     for (var h = 0; h < 12; h++) { var si = signByIndex(ascIdx + h); houses.push({ num: h + 1, sign: si.name, glyph: si.glyph, index: si.index }); }
 
     return {
-      system: "sidereal", ayanamsa: ay,
+      system: "tropical",
       ascendant: { lon: ascS.lon, sign: ascS.name, glyph: ascS.glyph, deg: ascS.deg },
       mc: { lon: mcS.lon, sign: mcS.name, glyph: mcS.glyph, deg: mcS.deg },
       bodies: bodies, houses: houses

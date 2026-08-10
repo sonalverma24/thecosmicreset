@@ -1,4 +1,4 @@
-/* The Cosmic Reset · home page logic (Vedic chart + inline guide builder + checkout) */
+/* The Cosmic Reset · home page logic (chart + inline guide builder + checkout) */
 (function () {
   "use strict";
 
@@ -124,7 +124,7 @@
   var lastFull = null;
   function renderFull(fc) {
     lastFull = fc;
-    setText("fcSystem", "Sidereal · Lahiri ayanamsa " + fc.ayanamsa.toFixed(2) + "°");
+    setText("fcSystem", "Tropical · Western astrology · whole-sign houses");
     $("fcAngles").innerHTML =
       '<span>Ascendant <b>' + fc.ascendant.sign + " " + fc.ascendant.deg.toFixed(1) + '°</b></span>' +
       '<span>Midheaven <b>' + fc.mc.sign + " " + fc.mc.deg.toFixed(1) + '°</b></span>';
@@ -216,7 +216,7 @@
         return;
       }
       if ((CFG.paymentLinks && CFG.paymentLinks[f.price]) || CFG.razorpayKeyId) {
-        openRazorpay(f.price, "Personalized sidereal guide · " + combo, Object.assign({ type: "order" }, order), function (resp) {
+        openRazorpay(f.price, "Personalized astrology guide · " + combo, Object.assign({ type: "order" }, order), function (resp) {
           postOrder(Object.assign({ payment_id: (resp && resp.razorpay_payment_id) || "" }, order));
           toast("Order received ✦ Your guide reaches <b>" + email + "</b> within " + PERS.deliveryHours + " hours.", 6000);
         });
