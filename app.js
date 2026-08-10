@@ -150,8 +150,11 @@
         var note = $("buildNote"); if (note) note.textContent = "Your details are saved. Complete your " + sym() + f.price + " payment with the button below.";
         return;
       }
-      if (CFG.paymentLinks && CFG.paymentLinks[f.price]) {
-        openRazorpay(f.price, "Personalized sidereal guide · " + combo, Object.assign({ type: "order" }, order), function () {});
+      if ((CFG.paymentLinks && CFG.paymentLinks[f.price]) || CFG.razorpayKeyId) {
+        openRazorpay(f.price, "Personalized sidereal guide · " + combo, Object.assign({ type: "order" }, order), function (resp) {
+          postOrder(Object.assign({ payment_id: (resp && resp.razorpay_payment_id) || "" }, order));
+          toast("Order received ✦ Your guide reaches <b>" + email + "</b> within " + PERS.deliveryHours + " hours.", 6000);
+        });
         return;
       }
       // coming soon: capture to the waitlist
@@ -162,7 +165,7 @@
 
   // ============================================================ CHECKOUT + CAPTURE
   function buttonId(price) { return CFG.paymentButtons && CFG.paymentButtons[price]; }
-  function hasPay(price) { return !!buttonId(price) || !!(CFG.paymentLinks && CFG.paymentLinks[price]); }
+  function hasPay(price) { return !!buttonId(price) || !!(CFG.paymentLinks && CFG.paymentLinks[price]) || !!CFG.razorpayKeyId; }
   function renderRzpButton(container, id) {
     if (!container) return;
     container.innerHTML = "";

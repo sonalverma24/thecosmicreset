@@ -4,10 +4,11 @@
    ============================================================ */
 
 window.TCR_CONFIG = {
-  /* 1) RAZORPAY: paste your PUBLIC key id (starts with rzp_live_ or rzp_test_).
-        Dashboard > Settings > API Keys. The public Key ID is safe in the browser.
-        Leave blank to keep the store in "preview" mode (buttons show a notice). */
-  razorpayKeyId: "",
+  /* 1) RAZORPAY: PUBLIC key id only (starts with rzp_live_ or rzp_test_).
+        The public Key ID is safe in the browser and powers in-page checkout for
+        every price. NEVER put the KEY SECRET here or anywhere in this site: a
+        secret in client code lets anyone charge/refund your account. */
+  razorpayKeyId: "rzp_live_TNw6WIacfrASYT",
 
   /* Currency for charges. Your Razorpay account must have this currency enabled.
      Prices below are in whole units of this currency ($15, $12, $5).
@@ -36,12 +37,11 @@ window.TCR_CONFIG = {
         When set, the Buy flow saves the buyer's email/details to your Sheet, then
         renders the real Razorpay button for them to pay. Amounts with no button and
         no link show as "Coming soon". */
-  paymentButtons: {
-    1: "pl_TNjjy7SEWYvDWf",   // $1 quick reads
-    12: "pl_TNjl6N1pTg37o1",  // $12 journals
-    19: "pl_TNlQdBwpJCni8E",  // $19 personalized single-focus guides
-    29: "pl_TNlT79W9PTeuAR",  // $29 full chart reading
-  },
+  /* Now using in-page checkout via razorpayKeyId above (works for every price),
+     so hosted buttons are off. Old button ids kept here in case you want to
+     switch back: 1 pl_TNjjy7SEWYvDWf · 12 pl_TNjl6N1pTg37o1 ·
+     19 pl_TNlQdBwpJCni8E · 29 pl_TNlT79W9PTeuAR */
+  paymentButtons: {},
 
   /* 3) OPTIONAL: external astrology API for certified-exact charts.
         Leave blank to use the accurate built-in engine (recommended, keyless).

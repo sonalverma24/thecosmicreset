@@ -9,7 +9,7 @@
 
   function sym() { return ({ USD: "$", INR: "₹", GBP: "£", EUR: "€", AUD: "A$", CAD: "C$" })[CFG.currency || "USD"] || ""; }
   function buttonId(price) { return CFG.paymentButtons && CFG.paymentButtons[price]; }
-  function hasPay(price) { return !!buttonId(price) || !!(CFG.paymentLinks && CFG.paymentLinks[price]); }
+  function hasPay(price) { return !!buttonId(price) || !!(CFG.paymentLinks && CFG.paymentLinks[price]) || !!CFG.razorpayKeyId; }
   function renderRzpButton(container, id) {
     container.innerHTML = "";
     var form = document.createElement("form");
@@ -104,7 +104,7 @@
     $("mNote").textContent = p.personalized ? "Made to order from your birth details." : "Instant digital download after payment.";
     mBirth.hidden = !p.personalized;
     var mBuy = $("mBuy");
-    mBuy.hidden = false; mBuy.textContent = "Continue to payment";
+    mBuy.hidden = false; mBuy.textContent = buttonId(p.price) ? "Continue to payment" : ("Pay " + sym() + p.price);
     $("mRzp").innerHTML = "";
     modal.hidden = false; document.body.style.overflow = "hidden";
   }
