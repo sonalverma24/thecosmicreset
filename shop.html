@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Shop · The Cosmic Reset</title>
   <meta name="description" content="Personalized Sidereal astrology guides, journals and quick reads. Buy a guide, add your birth details, and get the correct reading delivered within 24 hours." />
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="assets/favicon.png" type="image/png" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -13,13 +13,10 @@
   <header class="nav" id="nav">
     <div class="nav__inner">
       <a class="wordmark" href="index.html" aria-label="The Cosmic Reset, home">
-        <svg class="wordmark__mark" viewBox="0 0 100 100" fill="none" aria-hidden="true">
-          <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="3" />
-          <path d="M78 22 A40 40 0 1 0 78 78" stroke="currentColor" stroke-width="9" stroke-linecap="round" />
-          <path d="M66 36 A20 20 0 1 0 66 64" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" />
-          <line x1="80" y1="28" x2="58" y2="45" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
-          <circle cx="82" cy="25" r="7" fill="#FFDE59" />
-        </svg>
+        <span class="wordmark__logo" aria-hidden="true">
+          <img class="wordmark__img wordmark__img--onDark" src="assets/logo-mark-white.png" alt="" />
+          <img class="wordmark__img wordmark__img--onLight" src="assets/logo-mark.png" alt="" />
+        </span>
         <span class="wordmark__the">THE</span>
         <span class="wordmark__main">COSMIC RESET</span>
       </a>
@@ -50,6 +47,7 @@
   <footer class="footer">
     <div class="wrap footer__inner">
       <div class="footer__brand">
+        <img class="footer__logo" src="assets/logo-mark-white.png" alt="" aria-hidden="true" />
         <span class="wordmark wordmark--footer"><span class="wordmark__the">THE</span><span class="wordmark__main">COSMIC RESET</span></span>
         <p class="footer__line">personalized sidereal guides · delivered worldwide</p>
       </div>

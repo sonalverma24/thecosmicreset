@@ -74,9 +74,14 @@ a { color: inherit; text-decoration: none; }
 .nav.is-scrolled { background: rgba(255,255,255,0.72); backdrop-filter: saturate(160%) blur(18px); -webkit-backdrop-filter: saturate(160%) blur(18px); border-bottom-color: var(--purple-14); }
 .nav .wordmark, .nav__links a { color: var(--white); transition: color 0.4s var(--ease); }
 .nav.is-scrolled .wordmark, .nav.is-scrolled .nav__links a { color: var(--purple); }
-.wordmark { display: inline-flex; align-items: center; gap: 0.55em; line-height: 1; }
-.wordmark__mark { width: 27px; height: 27px; flex: none; filter: drop-shadow(0 1px 1.5px rgba(0,0,0,0.30)); }
-.nav.is-scrolled .wordmark__mark { filter: drop-shadow(0 1px 1px rgba(44,10,113,0.22)); }
+.wordmark { display: inline-flex; align-items: center; gap: 0.5em; line-height: 1; }
+.wordmark__logo { position: relative; width: 30px; height: 30px; flex: none; filter: drop-shadow(0 1px 1.5px rgba(0,0,0,0.30)); }
+.wordmark__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; transition: opacity 0.35s var(--ease); }
+.wordmark__img--onLight { opacity: 0; }
+.wordmark__img--onDark { opacity: 1; }
+.nav.is-scrolled .wordmark__img--onLight { opacity: 1; }
+.nav.is-scrolled .wordmark__img--onDark { opacity: 0; }
+.nav.is-scrolled .wordmark__logo { filter: drop-shadow(0 1px 1px rgba(44,10,113,0.22)); }
 .wordmark__the, .wordmark__main { text-shadow: 0 1px 1px rgba(0,0,0,0.22); }
 .nav.is-scrolled .wordmark__the, .nav.is-scrolled .wordmark__main { text-shadow: 0 1px 0 rgba(255,255,255,0.6); }
 .wordmark__the { font-size: 0.62rem; font-weight: 500; letter-spacing: 0.34em; opacity: 0.75; }
@@ -353,6 +358,7 @@ a { color: inherit; text-decoration: none; }
 /* ============================================================ FOOTER */
 .footer { background: var(--purple); color: var(--white); padding: clamp(56px, 8vw, 88px) 0 40px; }
 .footer__inner { display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; flex-wrap: wrap; }
+.footer__logo { width: 40px; height: 40px; display: block; margin-bottom: 14px; }
 .wordmark--footer { color: var(--white); flex-direction: column; align-items: flex-start; gap: 4px; }
 .wordmark--footer .wordmark__main { font-size: 1.3rem; }
 .footer__line { margin-top: 16px; font-size: 0.8rem; color: var(--white-40); letter-spacing: 0.1em; text-transform: lowercase; }
