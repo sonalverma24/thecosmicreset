@@ -6,7 +6,7 @@
   <title>The Cosmic Reset · Personalized Sidereal astrology guides</title>
   <meta name="description" content="Personalized Sidereal astrology guides built from your exact birth chart. Your Moon, Rising and houses decoded into career, love, health and money. Delivered worldwide in 24 hours." />
   <link rel="icon" href="assets/favicon.png" type="image/png" />
-  <link rel="stylesheet" href="styles.css?v=3" />
+  <link rel="stylesheet" href="styles.css?v=4" />
 </head>
 <body>
 
@@ -72,54 +72,74 @@
       </div>
     </section>
 
-    <!-- ================= CALCULATOR (Sidereal) + inline builder ================= -->
+    <!-- ================= FREE BIRTH CHART CALCULATOR ================= -->
     <section class="calc" id="calc" aria-labelledby="calc-title">
       <div class="wrap calc__inner">
-        <p class="eyebrow eyebrow--dark">Calculate your chart</p>
-        <h2 id="calc-title" class="statement statement--sm">Your real placements, the sidereal way.</h2>
-        <p class="calc__sub">Enter your birth date, time and city. We compute your Sun, Moon, Rising and houses using sidereal astrology.</p>
+        <p class="eyebrow eyebrow--dark">Free birth chart calculator</p>
+        <h2 id="calc-title" class="statement statement--sm">You know your zodiac sign.</h2>
+        <p class="calc__ordo">Or do you?</p>
+        <p class="calc__lead">You may have called yourself an Aries, Gemini or Scorpio your whole life. Enter your birth details and see what your chart actually calculates for you.</p>
+        <p class="calc__lead calc__lead--em"><strong>Your result might surprise you.</strong></p>
+        <div class="calc__topcta"><button type="button" class="btn btn--yellow" id="calcScroll">Calculate my chart</button></div>
 
         <form class="calc__form" id="chartForm" novalidate>
-          <div class="field"><label for="bMonth">Month</label><select id="bMonth" required></select></div>
-          <div class="field field--sm"><label for="bDay">Day</label><select id="bDay" required></select></div>
-          <div class="field field--sm"><label for="bYear">Year</label><input id="bYear" type="number" inputmode="numeric" min="1900" max="2030" placeholder="1995" required /></div>
-          <div class="field field--sm"><label for="bTime">Time</label><input id="bTime" type="time" value="12:00" required /></div>
-          <div class="field field--place">
-            <label for="bPlace">Birth city</label>
-            <input id="bPlace" type="text" autocomplete="off" placeholder="Start typing a city" required />
-            <ul class="place-results" id="placeResults" hidden></ul>
-          </div>
-          <button type="submit" class="btn btn--yellow" id="chartBtn">Reveal my chart</button>
+          <p class="calc__formhead">First, tell us when you were born.</p>
+          <fieldset class="calc__group">
+            <legend>Date of birth</legend>
+            <div class="calc__row">
+              <div class="field field--sm"><label for="bDay">Day</label><select id="bDay" required></select></div>
+              <div class="field"><label for="bMonth">Month</label><select id="bMonth" required></select></div>
+              <div class="field field--sm"><label for="bYear">Year</label><input id="bYear" type="number" inputmode="numeric" min="1900" max="2030" placeholder="1995" required /></div>
+            </div>
+          </fieldset>
+          <fieldset class="calc__group">
+            <legend>Time of birth</legend>
+            <div class="calc__row">
+              <div class="field field--sm"><label for="bTime" class="sr-only">Time of birth</label><input id="bTime" type="time" value="12:00" required /></div>
+              <p class="calc__note">Enter your birth time if you know it.</p>
+            </div>
+          </fieldset>
+          <fieldset class="calc__group">
+            <legend>Place of birth</legend>
+            <div class="field field--place">
+              <label for="bPlace" class="sr-only">Place of birth</label>
+              <input id="bPlace" type="text" autocomplete="off" placeholder="City, Country" required />
+              <ul class="place-results" id="placeResults" hidden></ul>
+            </div>
+          </fieldset>
+          <button type="submit" class="btn btn--yellow" id="chartBtn">Show me my chart</button>
         </form>
-        <p class="calc__hint">Don't know your exact time? Leave 12:00. Sun and Moon stay accurate; Rising is an estimate.</p>
 
-        <div class="chart" id="chartResult" hidden>
-          <div class="chart__grid">
-            <div class="chart__item"><span class="chart__glyph" id="rSunG" aria-hidden="true"></span><span class="chart__k">Sun</span><span class="chart__v" id="rSun"></span><span class="chart__note">who you are at the core</span></div>
-            <div class="chart__item"><span class="chart__glyph" id="rMoonG" aria-hidden="true"></span><span class="chart__k">Moon</span><span class="chart__v" id="rMoon"></span><span class="chart__note">how you feel &amp; self-soothe</span></div>
-            <div class="chart__item"><span class="chart__glyph" id="rRiseG" aria-hidden="true"></span><span class="chart__k">Rising (Lagna)</span><span class="chart__v" id="rRise"></span><span class="chart__note">how you meet the world</span></div>
-          </div>
-          <div class="chart__career">
-            <span class="chart__k">Your career house</span>
-            <p><strong>The 10th house</strong>, and the sign on it is <strong id="rCareer"></strong> <span id="rCareerG" aria-hidden="true"></span></p>
-            <span class="chart__note" id="rSrc">the energy your work runs on</span>
+        <div class="calc__loading" id="calcLoading" hidden>
+          <span class="spinner" aria-hidden="true"></span>
+          <p class="calc__loadhead">Finding your place in the sky…</p>
+          <p class="calc__note">Your birth details are being turned into your personal chart.</p>
+        </div>
+
+        <div class="result" id="chartResult" hidden>
+          <p class="result__eyebrow">Result</p>
+          <p class="result__label">Your Sun sign is</p>
+          <div class="result__sign"><span class="result__glyph zsign" id="rSunG" aria-hidden="true"></span><span class="result__name" id="rSun">SCORPIO</span></div>
+          <p class="result__desc">This is the part of astrology you probably already know. It describes some of your strongest underlying tendencies, what pulls you forward, what matters deeply to you and the kind of person you naturally grow into.</p>
+
+          <h3 class="result__h">But your Sun sign is only the beginning.</h3>
+          <p class="result__p">There are other parts of your chart that can explain why you can feel completely different from people who share your zodiac sign.</p>
+          <div class="result__grid">
+            <div class="rcard"><span class="rcard__k">Your Moon</span><span class="rcard__v" id="rMoon"></span><span class="rcard__d">How you process emotions, react instinctively and find comfort.</span></div>
+            <div class="rcard"><span class="rcard__k">Your Rising</span><span class="rcard__v" id="rRise"></span><span class="rcard__d">How you approach life, new situations and the world around you.</span></div>
+            <div class="rcard"><span class="rcard__k">Your relationships</span><span class="rcard__d">How you connect, attach, communicate and handle closeness.</span></div>
+            <div class="rcard"><span class="rcard__k">Your career and money</span><span class="rcard__d">How you work, what motivates you and the patterns that shape ambition and direction.</span></div>
+            <div class="rcard"><span class="rcard__k">Your personal patterns</span><span class="rcard__d">The behaviours you repeat, the situations you keep finding yourself in and what may help you respond differently.</span></div>
           </div>
 
-          <!-- builder, inline (not a separate section) -->
-          <div class="chart__build" id="chartBuild">
-            <h3 class="chart__buildtitle">Turn this into your guide</h3>
-            <p class="chart__buildsub">Written from these exact placements and delivered to your inbox within 24 hours.</p>
-            <div class="buildrow">
-              <div class="field"><label for="pFocus">What should it cover?</label><select id="pFocus"></select></div>
-              <div class="field field--grow"><label for="pEmail">Email for delivery</label><input id="pEmail" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com" required /></div>
-            </div>
-            <div class="buildbuy">
-              <span class="buildprice" id="buildPrice">$29</span>
-              <button type="button" class="btn btn--yellow" id="buildBtn">Get my guide</button>
-            </div>
-            <div class="modal__rzp" id="buildRzp"></div>
-            <p class="buildnote" id="buildNote">Made to order · delivered within 24 hours · secure checkout.</p>
+          <h3 class="result__h">This is where astrology gets personal.</h3>
+          <p class="result__p">Your chart is not a horoscope written for millions of people. It is a map built from your birth details. Explore the parts of your life you want to understand better.</p>
+          <div class="result__cta">
+            <div class="result__ctacol"><a class="btn btn--yellow" href="shop.html">Explore my personalized guides</a><span class="result__price">Personalized guides from $19</span></div>
+            <div class="result__ctacol"><a class="btn btn--purple" href="shop.html">Shop all guides</a><span class="result__price">Guides from $1</span></div>
           </div>
+
+          <button type="button" class="result__full" id="revealFull">Click to reveal your full birth chart <span aria-hidden="true">→</span></button>
         </div>
       </div>
     </section>
@@ -210,11 +230,42 @@
     <p class="footer__legal">© <span id="year"></span> The Cosmic Reset · thecosmicreset.shop</p>
   </footer>
 
+  <!-- full birth chart popup -->
+  <div class="modal fchart" id="fullChartModal" hidden aria-modal="true" role="dialog" aria-label="Your full birth chart">
+    <div class="modal__backdrop" data-fclose></div>
+    <div class="modal__card fchart__card">
+      <button class="modal__x" data-fclose aria-label="Close">×</button>
+      <p class="modal__eyebrow" id="fcSystem">Sidereal · Lahiri ayanamsa</p>
+      <h3 class="modal__title">Your full birth chart</h3>
+      <div class="fchart__angles" id="fcAngles"></div>
+      <div class="fchart__cols">
+        <div>
+          <h4 class="fchart__h">Placements</h4>
+          <div class="ptable" id="fcPlanets"></div>
+        </div>
+        <div>
+          <h4 class="fchart__h">Houses <span class="fchart__hsub">whole sign</span></h4>
+          <div class="htable" id="fcHouses"></div>
+        </div>
+      </div>
+      <div class="fchart__save">
+        <p class="fchart__savehead">Save your chart</p>
+        <p class="modal__hint">Keep your chart on file so you can come back to it anytime.</p>
+        <div id="fcGoogle" class="fchart__google"></div>
+        <div class="fchart__emailsave">
+          <input id="fcEmail" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com" />
+          <button class="btn btn--yellow btn--sm" id="fcSaveBtn" type="button">Save my chart</button>
+        </div>
+        <p class="modal__note" id="fcSaveNote"></p>
+      </div>
+    </div>
+  </div>
+
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-  <script src="config.js"></script>
-  <script src="chart.js"></script>
-  <script src="app.js"></script>
+  <script src="config.js?v=4"></script>
+  <script src="chart.js?v=4"></script>
+  <script src="app.js?v=4"></script>
 </body>
 </html>

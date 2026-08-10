@@ -78,18 +78,14 @@
 
   function renderChart(c, date) {
     lastChart = c; lastDate = date;
-    setSign("rSunG", c.sun.index, "chart__glyph"); setText("rSun", c.sun.name);
-    setSign("rMoonG", c.moon.index, "chart__glyph"); setText("rMoon", c.moon.name);
-    setSign("rRiseG", c.rising.index, "chart__glyph"); setText("rRise", c.rising.name);
-    setText("rCareer", c.career.name); setSign("rCareerG", c.career.index, "");
-    var noTime = (date.h === 12 && date.min === 0);
-    setText("rSrc", "Sidereal." + (noTime ? " Rising is an estimate; add an exact birth time for precision." : ""));
+    setSign("rSunG", c.sun.index, "result__glyph"); setText("rSun", c.sun.name);
+    setText("rMoon", c.moon.name);
+    setText("rRise", c.rising.name);
     var res = $("chartResult"); res.hidden = false; requestAnimationFrame(function () { res.classList.add("is-show"); });
-    updateBuilder();
     res.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  var chartForm = $("chartForm"), chartBtn = $("chartBtn");
+  var chartForm = $("chartForm"), chartBtn = $("chartBtn"), calcLoading = $("calcLoading");
   if (chartForm) {
     chartForm.addEventListener("submit", function (ev) {
       ev.preventDefault();
@@ -97,13 +93,82 @@
       if (!yr || yr < 1900 || yr > 2030) { toast("Enter a birth year between 1900 and 2030."); bYear.focus(); return; }
       var tm = (bTime.value || "12:00").split(":"), h = parseInt(tm[0], 10) || 0, min = parseInt(tm[1], 10) || 0;
       var date = { y: yr, m: m, d: d, h: h, min: min };
-      function go(place) { lastPlace = place; chartBtn.disabled = false; chartBtn.textContent = "Reveal my chart"; window.TCRChart.computeChart(date, place).then(function (c) { renderChart(c, date); }).catch(function () { toast("Couldn't read that chart. Check the details and try again."); }); }
-      if (selectedPlace) { go(selectedPlace); return; }
+      function reveal(place) {
+        lastPlace = place; chartBtn.disabled = false; chartBtn.textContent = "Show me my chart";
+        var res = $("chartResult"); if (res) { res.hidden = true; res.classList.remove("is-show"); }
+        if (calcLoading) calcLoading.hidden = false;
+        if (calcLoading) calcLoading.scrollIntoView({ behavior: "smooth", block: "center" });
+        var t0 = Date.now();
+        window.TCRChart.computeChart(date, place).then(function (c) {
+          setTimeout(function () { if (calcLoading) calcLoading.hidden = true; renderChart(c, date); }, Math.max(0, 950 - (Date.now() - t0)));
+        }).catch(function () { if (calcLoading) calcLoading.hidden = true; toast("Couldn't read that chart. Check the details and try again."); });
+      }
+      if (selectedPlace) { reveal(selectedPlace); return; }
       var q = bPlace.value.trim();
       if (q.length < 2) { toast("Add your birth city so we can find your Rising sign."); bPlace.focus(); return; }
       chartBtn.disabled = true; chartBtn.textContent = "Finding city…";
-      window.TCRChart.geocode(q).then(function (list) { if (!list.length) { chartBtn.disabled = false; chartBtn.textContent = "Reveal my chart"; toast("Couldn't find that city. Try a nearby larger city."); return; } selectedPlace = list[0]; bPlace.value = list[0].label; go(list[0]); });
+      window.TCRChart.geocode(q).then(function (list) { if (!list.length) { chartBtn.disabled = false; chartBtn.textContent = "Show me my chart"; toast("Couldn't find that city. Try a nearby larger city."); return; } selectedPlace = list[0]; bPlace.value = list[0].label; reveal(list[0]); });
     });
+  }
+  var calcScroll = $("calcScroll");
+  if (calcScroll && chartForm) calcScroll.addEventListener("click", function () { chartForm.scrollIntoView({ behavior: "smooth", block: "center" }); var f = $("bDay"); if (f) setTimeout(function () { f.focus({ preventScroll: true }); }, 400); });
+
+  // ============================================================ FULL BIRTH CHART popup
+  var fullModal = $("fullChartModal");
+  function openFull() { if (fullModal) { fullModal.hidden = false; document.body.style.overflow = "hidden"; } }
+  function closeFull() { if (fullModal) { fullModal.hidden = true; document.body.style.overflow = ""; } }
+  document.addEventListener("click", function (e) { if (e.target.closest("[data-fclose]")) closeFull(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && fullModal && !fullModal.hidden) closeFull(); });
+  function ordinal(n) { var s = ["th", "st", "nd", "rd"], v = n % 100; return n + (s[(v - 20) % 10] || s[v] || s[0]); }
+
+  var lastFull = null;
+  function renderFull(fc) {
+    lastFull = fc;
+    setText("fcSystem", "Sidereal · Lahiri ayanamsa " + fc.ayanamsa.toFixed(2) + "°");
+    $("fcAngles").innerHTML =
+      '<span>Ascendant <b>' + fc.ascendant.sign + " " + fc.ascendant.deg.toFixed(1) + '°</b></span>' +
+      '<span>Midheaven <b>' + fc.mc.sign + " " + fc.mc.deg.toFixed(1) + '°</b></span>';
+    $("fcPlanets").innerHTML = fc.bodies.map(function (b) {
+      return '<div class="prow"><span class="prow__glyph">' + b.glyph + '</span>' +
+        '<span class="prow__name">' + b.name + ' <span class="prow__pos">' + b.sign + " " + b.deg.toFixed(1) + "°" + (b.retro ? '<span class="retro">℞</span>' : "") + '</span></span>' +
+        '<span class="prow__house">' + ordinal(b.house) + " house</span></div>";
+    }).join("");
+    $("fcHouses").innerHTML = fc.houses.map(function (h) {
+      return '<div class="hrow"><span class="hrow__n">' + ordinal(h.num) + ' house</span><span class="hrow__s">' + h.sign + "</span></div>";
+    }).join("");
+  }
+  var revealFull = $("revealFull");
+  if (revealFull) revealFull.addEventListener("click", function () {
+    if (!lastDate || !lastPlace) { toast("Calculate your chart first."); return; }
+    try { renderFull(window.TCRChart.computeFullChart(lastDate, lastPlace)); openFull(); }
+    catch (e) { toast("Couldn't build the full chart. Try again."); }
+  });
+
+  // save chart (email now; Google optional via config.googleClientId)
+  function chartSummary() { var fc = lastFull; if (!fc) return ""; return fc.bodies.map(function (b) { return b.name + " " + b.sign + " " + b.deg.toFixed(1) + (b.retro ? "R" : "") + " H" + b.house; }).join(" | ") + " | Asc " + fc.ascendant.sign + " | MC " + fc.mc.sign; }
+  function saveChart(email, name) {
+    if (!CFG.sheetsEndpoint) return;
+    fetch(CFG.sheetsEndpoint, { method: "POST", mode: "no-cors", body: new URLSearchParams({ type: "chart", email: email, name: name || "", chart: chartSummary(), birth: (lastDate ? lastDate.y + "-" + lastDate.m + "-" + lastDate.d + " " + lastDate.h + ":" + lastDate.min : ""), place: (lastPlace ? lastPlace.label : ""), ts: new Date().toISOString() }) }).catch(function () {});
+  }
+  var fcSaveBtn = $("fcSaveBtn"), fcEmail = $("fcEmail"), fcSaveNote = $("fcSaveNote");
+  if (fcSaveBtn) fcSaveBtn.addEventListener("click", function () {
+    var email = (fcEmail.value || "").trim();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { fcSaveNote.textContent = "Enter a valid email."; return; }
+    saveChart(email, ""); fcSaveNote.textContent = "Saved ✦ your chart is on file for " + email + ".";
+  });
+  if (CFG.googleClientId && $("fcGoogle")) {
+    var gs = document.createElement("script"); gs.src = "https://accounts.google.com/gsi/client"; gs.async = true; gs.defer = true;
+    gs.onload = function () {
+      try {
+        window.google.accounts.id.initialize({ client_id: CFG.googleClientId, callback: function (resp) {
+          var p = {}; try { p = JSON.parse(atob(resp.credential.split(".")[1])); } catch (e) {}
+          if (fcEmail && p.email) fcEmail.value = p.email;
+          saveChart(p.email || "", p.name || ""); if (fcSaveNote) fcSaveNote.textContent = "Signed in as " + (p.email || "") + " ✦ chart saved.";
+        } });
+        window.google.accounts.id.renderButton($("fcGoogle"), { theme: "filled_blue", size: "large", text: "continue_with", shape: "pill" });
+      } catch (e) {}
+    };
+    document.head.appendChild(gs);
   }
 
   // ============================================================ INLINE BUILDER

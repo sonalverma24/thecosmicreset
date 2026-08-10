@@ -27,7 +27,11 @@ function doPost(e) {
     var ss = getSS();
     var p = (e && e.parameter) ? e.parameter : {};
 
-    if (p.type === 'order') {
+    if (p.type === 'chart') {
+      var cs = ss.getSheetByName('Charts') || ss.insertSheet('Charts');
+      if (cs.getLastRow() === 0) cs.appendRow(['Timestamp', 'Email', 'Name', 'Birth', 'Place', 'Chart']);
+      cs.appendRow([p.ts || new Date().toISOString(), p.email || '', p.name || '', p.birth || '', p.place || '', p.chart || '']);
+    } else if (p.type === 'order') {
       var os = ss.getSheetByName('Orders') || ss.insertSheet('Orders');
       if (os.getLastRow() === 0) {
         os.appendRow(['Timestamp', 'Email', 'Product', 'Sun', 'Moon', 'Rising', 'Career', 'Focus', 'Price', 'Birth', 'Place', 'Payment ID']);

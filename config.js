@@ -49,6 +49,12 @@ window.TCR_CONFIG = {
         JSON { sun, moon, ascendant, mc } as ecliptic longitudes in degrees. */
   astroEndpoint: "",
 
+  /* OPTIONAL: Google Sign-In so people can save their full birth chart.
+     Create an OAuth Client ID (type: Web) in Google Cloud Console, add your
+     domain to Authorized JavaScript origins, and paste the Client ID here.
+     Leave blank to use the email "Save my chart" field instead. */
+  googleClientId: "",
+
   /* Branding shown inside the Razorpay checkout modal. */
   brandName: "The Cosmic Reset",
   themeColor: "#2C0A71",

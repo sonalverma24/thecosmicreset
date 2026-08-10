@@ -367,6 +367,75 @@ a { color: inherit; text-decoration: none; }
 .footer__nav a:hover { color: var(--white); }
 .footer__legal { max-width: var(--maxw); margin: clamp(48px, 7vw, 72px) auto 0; padding: 24px var(--pad) 0; border-top: 1px solid var(--white-14); font-size: 0.8rem; color: var(--white-40); }
 
+/* ============================================================ CALC (birth chart) */
+.calc__ordo { font-size: clamp(1.3rem, 2.6vw, 1.8rem); font-style: italic; color: var(--purple-55); margin-top: 6px; }
+.calc__lead { max-width: 620px; margin: 18px auto 0; font-size: 1.06rem; line-height: 1.55; color: var(--purple-80); }
+.calc__lead--em { color: var(--purple); }
+.calc__topcta { margin-top: 26px; }
+
+.calc__form { display: block; max-width: 560px; margin: clamp(36px, 6vw, 60px) auto 0; text-align: left; }
+.calc__formhead { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 18px; text-align: center; }
+.calc__group { border: 0; padding: 0; margin: 0 0 20px; }
+.calc__group legend { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--purple-55); margin-bottom: 10px; padding: 0; }
+.calc__row { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; }
+.calc__row .field--place, .calc__group .field--place { flex: 1 1 100%; }
+.calc__note { font-size: 0.9rem; color: var(--purple-55); align-self: center; }
+.calc__form > .btn { width: 100%; justify-content: center; margin-top: 8px; }
+
+.calc__loading { max-width: 520px; margin: 40px auto 0; text-align: center; }
+.spinner { width: 34px; height: 34px; border-radius: 50%; border: 3px solid var(--purple-14); border-top-color: var(--purple); display: inline-block; animation: spin360 0.9s linear infinite; }
+@keyframes spin360 { to { transform: rotate(360deg); } }
+.calc__loadhead { margin-top: 16px; font-size: 1.15rem; font-weight: 700; }
+
+/* result */
+.result { max-width: 720px; margin: clamp(36px, 6vw, 56px) auto 0; text-align: center;
+  opacity: 0; transform: translateY(12px); transition: opacity 0.5s var(--ease), transform 0.5s var(--ease); }
+.result.is-show { opacity: 1; transform: none; }
+.result__eyebrow { font-size: 0.72rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--purple-55); }
+.result__label { margin-top: 10px; font-size: 1.1rem; color: var(--purple-55); }
+.result__sign { display: flex; align-items: center; justify-content: center; gap: 16px; margin: 8px 0 4px; }
+.result__glyph { width: 3.2rem; height: 3.2rem; color: var(--purple); }
+.result__name { font-size: clamp(2.4rem, 8vw, 4.2rem); font-weight: 700; letter-spacing: -0.02em; text-transform: uppercase; line-height: 1; }
+.result__desc { max-width: 560px; margin: 18px auto 0; font-size: 1.02rem; line-height: 1.6; color: var(--purple-80); }
+.result__h { margin-top: clamp(36px, 5vw, 56px); font-size: clamp(1.5rem, 3.4vw, 2.1rem); font-weight: 700; letter-spacing: -0.02em; }
+.result__p { max-width: 580px; margin: 14px auto 0; color: var(--purple-55); line-height: 1.55; }
+.result__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 30px; text-align: left; }
+.rcard { border: 1px solid var(--purple-14); border-radius: 18px; padding: 20px; display: flex; flex-direction: column; gap: 6px; }
+.rcard__k { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--purple-55); }
+.rcard__v { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.02em; }
+.rcard__d { font-size: 0.92rem; color: var(--purple-55); line-height: 1.5; }
+.result__cta { display: flex; flex-wrap: wrap; gap: 18px 40px; justify-content: center; margin-top: 32px; }
+.result__ctacol { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.result__price { font-size: 0.85rem; color: var(--purple-55); }
+.result__full { margin-top: 34px; background: transparent; border: 0; cursor: pointer; font-family: var(--font); font-size: 0.98rem; font-weight: 500; color: var(--purple); border-bottom: 1px solid var(--purple-14); padding-bottom: 3px; transition: border-color 0.25s var(--ease); }
+.result__full:hover { border-color: var(--purple); }
+
+/* full chart modal */
+.fchart__card { width: min(760px, 100%); }
+.fchart__angles { display: flex; flex-wrap: wrap; gap: 10px 22px; margin: 14px 0 20px; padding-bottom: 16px; border-bottom: 1px solid var(--purple-14); }
+.fchart__angles span { font-size: 0.95rem; color: var(--purple-80); }
+.fchart__angles b { font-weight: 700; }
+.fchart__cols { display: grid; grid-template-columns: 1.5fr 1fr; gap: clamp(20px, 3vw, 40px); }
+.fchart__h { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--purple-55); margin-bottom: 12px; }
+.fchart__hsub { text-transform: none; letter-spacing: 0; opacity: 0.7; }
+.prow { display: grid; grid-template-columns: 1.4rem 1fr auto; gap: 10px; align-items: baseline; padding: 8px 0; border-top: 1px solid var(--purple-08); font-size: 0.95rem; }
+.prow:first-child { border-top: 0; }
+.prow__glyph { font-size: 1.1rem; color: var(--purple); }
+.prow__name { font-weight: 500; }
+.prow__pos { color: var(--purple-80); }
+.prow__pos .retro { color: #b23a48; font-weight: 700; font-size: 0.8rem; margin-left: 4px; }
+.prow__house { color: var(--purple-55); font-size: 0.82rem; text-align: right; white-space: nowrap; }
+.hrow { display: flex; justify-content: space-between; padding: 7px 0; border-top: 1px solid var(--purple-08); font-size: 0.92rem; }
+.hrow:first-child { border-top: 0; }
+.hrow__n { color: var(--purple-55); }
+.hrow__s { font-weight: 500; }
+.fchart__save { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--purple-14); }
+.fchart__savehead { font-size: 1.05rem; font-weight: 700; }
+.fchart__google { margin-top: 12px; }
+.fchart__emailsave { margin-top: 12px; display: flex; gap: 10px; }
+.fchart__emailsave input { flex: 1; font-family: var(--font); font-size: 1rem; color: var(--purple); background: var(--white); border: 1px solid var(--purple-14); border-radius: 12px; padding: 0.7em 1em; }
+.fchart__emailsave input:focus { outline: none; border-color: var(--purple); box-shadow: 0 0 0 4px var(--purple-08); }
+
 /* ============================================================ INSTAGRAM */
 .ig { background: var(--white); padding: clamp(44px, 7vh, 88px) 0; }
 .ig__grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
@@ -476,6 +545,8 @@ a { color: inherit; text-decoration: none; }
   .signup .btn { justify-content: center; }
   .signbar { grid-template-columns: repeat(2, 1fr); }
   /* denser, readable chart: glyph left, label + value + meaning stacked right */
+  .fchart__cols { grid-template-columns: 1fr; }
+  .result__sign { flex-direction: column; gap: 8px; }
   .chart__grid { grid-template-columns: 1fr; gap: 10px; }
   .chart__item { display: grid; grid-template-columns: auto 1fr; grid-template-areas: "g k" "g v" "g n"; column-gap: 14px; row-gap: 2px; align-items: center; padding: 14px 16px; }
   .chart__glyph { grid-area: g; width: 2rem; height: 2rem; margin: 0; }
