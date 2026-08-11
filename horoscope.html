@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Monthly Horoscope · The Cosmic Reset</title>
+  <meta name="description" content="Your monthly horoscope, written from the real sky in plain, friend-to-friend language. Overall, love, career, health, purpose and lucky dates for every sign." />
+  <link rel="icon" href="assets/favicon.png" type="image/png" />
+  <link rel="stylesheet" href="styles.css?v=12" />
+</head>
+<body>
+
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a class="wordmark" href="index.html" aria-label="The Cosmic Reset, home">
+        <span class="wordmark__logo" aria-hidden="true">
+          <img class="wordmark__img wordmark__img--onDark" src="assets/logo-mark-white.png" alt="" />
+          <img class="wordmark__img wordmark__img--onLight" src="assets/logo-mark.png" alt="" />
+        </span>
+        <span class="wordmark__the">THE</span>
+        <span class="wordmark__main">COSMIC RESET</span>
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="index.html#calc">Free chart</a>
+        <a href="shop.html" class="nav__cta">Shop now</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="horo-hero" id="top">
+      <div class="wrap horo-hero__in">
+        <p class="eyebrow">Monthly horoscope · <span data-month>this month</span></p>
+        <h1 class="horo-hero__title">Your <span data-month>month</span>, told like a friend would tell you.</h1>
+        <p class="horo-hero__sub">No fortune-cookie lines. This is read from where the planets actually are right now, in language that actually helps. Pick your sign.</p>
+
+        <div class="signpick-card">
+          <div class="signpick" id="signPick" aria-label="Choose your star sign"></div>
+          <p class="signpick__hint">Not sure of your sign? <a href="index.html#calc">Find it with the free birth chart</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="horo-read">
+      <div class="wrap">
+        <div id="reading" hidden></div>
+        <div class="horo-empty" id="horoEmpty">
+          <p>Tap your sign above to read your <span data-month>month</span>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sky">
+      <div class="wrap">
+        <header class="section-head section-head--center">
+          <p class="eyebrow eyebrow--dark">The sky this <span data-month>month</span></p>
+          <h2 class="statement statement--sm">What's actually moving overhead.</h2>
+          <p class="section-head__sub">Every reading above is built from these real movements, no guesswork.</p>
+        </header>
+        <div class="skystrip" id="skyStrip"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <div class="footer__brand">
+        <img class="footer__logo" src="assets/logo-mark-white.png" alt="" aria-hidden="true" />
+        <span class="wordmark wordmark--footer"><span class="wordmark__the">THE</span><span class="wordmark__main">COSMIC RESET</span></span>
+        <p class="footer__line">personalized astrology guides · delivered worldwide</p>
+      </div>
+      <nav class="footer__nav" aria-label="Footer">
+        <a href="index.html">Home</a>
+        <a href="horoscope.html">Horoscope</a>
+        <a href="index.html#calc">Your chart</a>
+        <a href="shop.html">Shop</a>
+        <a href="https://instagram.com/thecosmicreset" rel="noopener">@thecosmicreset</a>
+      </nav>
+    </div>
+    <p class="footer__legal">© <span id="year"></span> The Cosmic Reset · thecosmicreset.shop</p>
+  </footer>
+
+  <script src="horoscope.js?v=12"></script>
+  <script src="horoscope-app.js?v=12"></script>
+</body>
+</html>
