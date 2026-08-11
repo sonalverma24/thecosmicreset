@@ -74,26 +74,48 @@ window.TCR_PERSONALIZED = {
 };
 
 /* ============================================================
-   SHOP CATALOG (the marketplace page).
-   personalized:true  -> asks for birth details, delivered in 24h.
-   personalized:false -> instant digital download.
-   tag: optional badge. motif: which built-in graphic to show on the card.
+   SHOP: three depth tiers (left vertical tabs). 1 < 2 < 3.
+   personalized:true  -> asks for birth details before checkout.
+   sign:"aries" -> shows the sign graphic on the card (per-sign products).
+   image:"..."  -> shows that graphic (personalised products).
    ============================================================ */
-window.TCR_SHOP = [
-  { id: "sh-full",    cat: "Personalized guides", title: "Full Chart Reading",        price: 29, personalized: true,  tag: "Bestseller", image: "assets/graphics/g01.jpg", desc: "Your entire birth chart, read end to end: Sun, Moon, Rising, all twelve houses." },
-  { id: "sh-career",  cat: "Personalized guides", title: "Career & Money Guide",      price: 19, personalized: true,  tag: "",           image: "assets/graphics/g02.jpg", desc: "Your 10th house, work style, and money patterns, decoded for the real you." },
-  { id: "sh-love",    cat: "Personalized guides", title: "Love & Relationships Guide",price: 19, personalized: true,  tag: "",           image: "assets/graphics/g03.jpg", desc: "How you attach, clash and repair, read from your Venus, Moon and 7th house." },
-  { id: "sh-health",  cat: "Personalized guides", title: "Health & Wellness Guide",   price: 19, personalized: true,  tag: "",           image: "assets/graphics/g04.jpg", desc: "Energy, stress and the body's patterns, mapped to your chart." },
-  { id: "sh-purpose", cat: "Personalized guides", title: "Purpose & Direction Guide", price: 19, personalized: true,  tag: "",           image: "assets/graphics/g05.jpg", desc: "Your nodes, 9th and 10th houses: where you're actually headed." },
-  { id: "sh-year",    cat: "Personalized guides", title: "Year Ahead Guide",          price: 19, personalized: true,  tag: "New",        image: "assets/graphics/g06.jpg", desc: "The transits shaping your next twelve months, personalised to your chart." },
-
-  { id: "jr-reset",   cat: "Journals", title: "The Sun-Sign Reset Journal", price: 12, personalized: false, tag: "", image: "assets/graphics/g07.jpg", desc: "Ninety days of prompts tuned to your patterns. Printable, reusable." },
-  { id: "jr-moon",    cat: "Journals", title: "The Moon Cycle Journal",     price: 12, personalized: false, tag: "", image: "assets/graphics/g08.jpg", desc: "Plan and reflect with the lunar month, new moon to full." },
-  { id: "jr-shadow",  cat: "Journals", title: "The Shadow Work Journal",    price: 12, personalized: false, tag: "", image: "assets/graphics/g09.jpg", desc: "Deep prompts for honest, quiet reflection." },
-
-  { id: "qg-wdylyt",  cat: "Quick reads", title: "Why Do You Love Like That", price: 1, personalized: false, tag: "", image: "assets/graphics/g10.jpg", desc: "Your relationship pattern on one page. Instant read." },
-  { id: "qg-decoder", cat: "Quick reads", title: "The Situationship Decoder", price: 1, personalized: false, tag: "", image: "assets/graphics/g14.jpg", desc: "His Venus sign vs. whether he'll ever commit." },
+window.TCR_SECTIONS = [
+  { key: "pocket",   num: "01", title: "Pocket Guides",       price: "$1",       tag: "A quick, sharp read on your sign.", depth: 1 },
+  { key: "playbook", num: "02", title: "Astro Playbooks",     price: "$5",       tag: "The full deep dive into your sign.", depth: 2 },
+  { key: "personal", num: "03", title: "Personalised Guides", price: "from $10", tag: "Written from your exact birth chart.", depth: 3 },
 ];
+
+window.TCR_SHOP = (function () {
+  var SIGNS12 = [
+    ["aries", "Aries", "Courage, drive and the fire that leads."],
+    ["taurus", "Taurus", "Steadiness, sensuality and building slowly."],
+    ["gemini", "Gemini", "Curiosity, wit and the restless mind."],
+    ["cancer", "Cancer", "Feeling, memory and the protective heart."],
+    ["leo", "Leo", "Warmth, pride and the need to be seen."],
+    ["virgo", "Virgo", "Precision, service and the quiet fixer."],
+    ["libra", "Libra", "Balance, charm and the art of harmony."],
+    ["scorpio", "Scorpio", "Depth, intensity and hard-won trust."],
+    ["sagittarius", "Sagittarius", "Freedom, meaning and aiming higher."],
+    ["capricorn", "Capricorn", "Ambition, discipline and the long climb."],
+    ["aquarius", "Aquarius", "Vision, detachment and the outsider's logic."],
+    ["pisces", "Pisces", "Empathy, imagination and soft boundaries."]
+  ];
+  /* which products are actually published (buyable). The rest show Coming soon. */
+  var LIVE = { "pk-aries": 1, "pk-taurus": 1, "pb-sagittarius": 1 };
+  var list = [];
+  SIGNS12.forEach(function (s) { list.push({ id: "pk-" + s[0], section: "pocket", cat: "Pocket Guides", title: "The " + s[1] + " Pocket Guide", price: 1, personalized: false, sign: s[0], desc: s[2], available: !!LIVE["pk-" + s[0]] }); });
+  SIGNS12.forEach(function (s) { list.push({ id: "pb-" + s[0], section: "playbook", cat: "Astro Playbooks", title: "The " + s[1] + " Playbook", price: 5, personalized: false, sign: s[0], desc: s[2], available: !!LIVE["pb-" + s[0]] }); });
+  /* Personalised guides are made to order, so they are always available. */
+  list.push(
+    { id: "ps-full",    section: "personal", cat: "Personalised Guides", title: "Full Chart Reading",         price: 15, personalized: true, tag: "Full guide", image: "assets/graphics/g01.jpg", desc: "Your entire birth chart, read end to end.", available: true },
+    { id: "ps-love",    section: "personal", cat: "Personalised Guides", title: "Love & Relationships Guide", price: 10, personalized: true, image: "assets/graphics/g03.jpg", desc: "How you attach, clash and repair.", available: true, bestseller: true },
+    { id: "ps-career",  section: "personal", cat: "Personalised Guides", title: "Career & Money Guide",       price: 10, personalized: true, image: "assets/graphics/g02.jpg", desc: "Your 10th house, work style and money patterns.", available: true, bestseller: true },
+    { id: "ps-health",  section: "personal", cat: "Personalised Guides", title: "Health & Wellness Guide",    price: 10, personalized: true, image: "assets/graphics/g04.jpg", desc: "Energy, stress and the body's patterns.", available: true },
+    { id: "ps-purpose", section: "personal", cat: "Personalised Guides", title: "Purpose & Direction Guide",  price: 10, personalized: true, image: "assets/graphics/g05.jpg", desc: "Your nodes and 9th/10th houses: where you're headed.", available: true },
+    { id: "ps-year",    section: "personal", cat: "Personalised Guides", title: "Year Ahead Guide",           price: 10, personalized: true, image: "assets/graphics/g06.jpg", desc: "The transits shaping your next twelve months.", available: true }
+  );
+  return list;
+})();
 
 /* ============================================================
    PRODUCTS: only buyable items need an entry here.

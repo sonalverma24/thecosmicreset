@@ -6,7 +6,7 @@
   <title>Shop · The Cosmic Reset</title>
   <meta name="description" content="Personalized astrology guides, journals and quick reads. Buy a guide, add your birth details, and get the correct reading delivered within 24 hours." />
   <link rel="icon" href="assets/favicon.png" type="image/png" />
-  <link rel="stylesheet" href="styles.css?v=6" />
+  <link rel="stylesheet" href="styles.css?v=8" />
 </head>
 <body>
 
@@ -21,10 +21,7 @@
         <span class="wordmark__main">COSMIC RESET</span>
       </a>
       <nav class="nav__links" aria-label="Primary">
-        <a href="index.html">Home</a>
-        <a href="index.html#calc">Your chart</a>
-        <a href="past.html">Past lives</a>
-        <a href="index.html#calc" class="nav__cta">Check your chart</a>
+        <a href="index.html#calc" class="nav__cta">Free chart</a>
       </nav>
     </div>
   </header>
@@ -33,14 +30,15 @@
     <section class="shop-hero">
       <div class="wrap shop-hero__in">
         <h1>The Guide Shop</h1>
-        <p>Personalized astrology guides, journals and quick reads. Delivered to your inbox.</p>
+        <p>Three depths of guidance, from a quick pocket read to a chart built around you.</p>
       </div>
     </section>
 
-    <div class="tabs"><div class="tabs__in" id="tabs"></div></div>
-
     <section class="shopwrap">
-      <div class="wrap"><div class="pgrid" id="pgrid"></div></div>
+      <div class="wrap shoplayout">
+        <aside class="shoptabs" id="shoptabs" role="tablist" aria-label="Guide depth"></aside>
+        <div class="shopmain"><div class="pgrid" id="pgrid"></div></div>
+      </div>
     </section>
   </main>
 
@@ -92,11 +90,38 @@
     </div>
   </div>
 
+  <!-- sign guide info popup -->
+  <div class="modal signmodal" id="signModal" hidden aria-modal="true" role="dialog">
+    <div class="modal__backdrop" data-sclose></div>
+    <div class="modal__card">
+      <button class="modal__x" data-sclose aria-label="Close">×</button>
+      <div class="signmodal__head">
+        <span class="signmodal__glyph zsign" id="smGlyph" aria-hidden="true"></span>
+        <div>
+          <p class="modal__eyebrow" id="smCat"></p>
+          <h3 class="modal__title" id="smTitle"></h3>
+          <p class="modal__price" id="smPrice"></p>
+        </div>
+      </div>
+      <h4 class="signmodal__h">Why you'll want it</h4>
+      <p class="signmodal__why" id="smWhy"></p>
+      <h4 class="signmodal__h">What's inside</h4>
+      <ul class="signmodal__inside" id="smInside"></ul>
+      <div id="smBuyArea">
+        <div class="field"><label for="smEmail">Email for delivery</label><input id="smEmail" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com" /></div>
+        <button class="btn btn--yellow" id="smBuy">Buy now</button>
+        <div class="modal__rzp" id="smRzp"></div>
+      </div>
+      <p class="signmodal__soon" id="smSoon" hidden>Coming soon. We're finishing this one.</p>
+      <p class="modal__note" id="smNote"></p>
+    </div>
+  </div>
+
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-  <script src="config.js?v=6"></script>
-  <script src="chart.js?v=6"></script>
-  <script src="shop.js?v=6"></script>
+  <script src="config.js?v=8"></script>
+  <script src="chart.js?v=8"></script>
+  <script src="shop.js?v=8"></script>
 </body>
 </html>
