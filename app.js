@@ -76,55 +76,29 @@
   function setText(id, t) { var el = $(id); if (el) el.textContent = t; }
   function setSign(id, idx, base) { var el = $(id); if (!el) return; el.className = (base ? base + " " : "") + "zsign"; el.style.setProperty("--zs", "url('assets/signs/" + SIGNS[idx].id + ".png')"); }
 
-  function renderChart(c, date) {
-    lastChart = c; lastDate = date;
-    setSign("rSunG", c.sun.index, "result__glyph"); setText("rSun", c.sun.name);
-    setText("rMoon", c.moon.name);
-    setText("rRise", c.rising.name);
-    var res = $("chartResult"); res.hidden = false; requestAnimationFrame(function () { res.classList.add("is-show"); });
-    res.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-
   var chartForm = $("chartForm"), chartBtn = $("chartBtn"), calcLoading = $("calcLoading");
-  if (chartForm) {
-    chartForm.addEventListener("submit", function (ev) {
-      ev.preventDefault();
-      var m = parseInt(bMonth.value, 10), d = parseInt(bDay.value, 10), yr = parseInt(bYear.value, 10);
-      if (!yr || yr < 1900 || yr > 2030) { toast("Enter a birth year between 1900 and 2030."); bYear.focus(); return; }
-      var tm = (bTime.value || "12:00").split(":"), h = parseInt(tm[0], 10) || 0, min = parseInt(tm[1], 10) || 0;
-      var date = { y: yr, m: m, d: d, h: h, min: min };
-      function reveal(place) {
-        lastPlace = place; chartBtn.disabled = false; chartBtn.textContent = "Show me my chart";
-        var res = $("chartResult"); if (res) { res.hidden = true; res.classList.remove("is-show"); }
-        if (calcLoading) calcLoading.hidden = false;
-        if (calcLoading) calcLoading.scrollIntoView({ behavior: "smooth", block: "center" });
-        var t0 = Date.now();
-        window.TCRChart.computeChart(date, place).then(function (c) {
-          setTimeout(function () { if (calcLoading) calcLoading.hidden = true; renderChart(c, date); }, Math.max(0, 950 - (Date.now() - t0)));
-        }).catch(function () { if (calcLoading) calcLoading.hidden = true; toast("Couldn't read that chart. Check the details and try again."); });
-      }
-      if (selectedPlace) { reveal(selectedPlace); return; }
-      var q = bPlace.value.trim();
-      if (q.length < 2) { toast("Add your birth city so we can find your Rising sign."); bPlace.focus(); return; }
-      chartBtn.disabled = true; chartBtn.textContent = "Finding city…";
-      window.TCRChart.geocode(q).then(function (list) { if (!list.length) { chartBtn.disabled = false; chartBtn.textContent = "Show me my chart"; toast("Couldn't find that city. Try a nearby larger city."); return; } selectedPlace = list[0]; bPlace.value = list[0].label; reveal(list[0]); });
-    });
-  }
-  var calcScroll = $("calcScroll");
-  if (calcScroll && chartForm) calcScroll.addEventListener("click", function () { chartForm.scrollIntoView({ behavior: "smooth", block: "center" }); var f = $("bDay"); if (f) setTimeout(function () { f.focus({ preventScroll: true }); }, 400); });
 
-  // ============================================================ FULL BIRTH CHART popup
+  // ============================================================ BIRTH CHART popup
   var fullModal = $("fullChartModal");
   function openFull() { if (fullModal) { fullModal.hidden = false; document.body.style.overflow = "hidden"; } }
   function closeFull() { if (fullModal) { fullModal.hidden = true; document.body.style.overflow = ""; } }
   document.addEventListener("click", function (e) { if (e.target.closest("[data-fclose]")) closeFull(); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape" && fullModal && !fullModal.hidden) closeFull(); });
   function ordinal(n) { var s = ["th", "st", "nd", "rd"], v = n % 100; return n + (s[(v - 20) % 10] || s[v] || s[0]); }
+  var HOUSE_AREAS = ["Self & identity", "Money & values", "Communication", "Home & family", "Creativity & romance", "Health & routine", "Partnership", "Intimacy & change", "Beliefs & travel", "Career & status", "Community & hopes", "Solitude & the unseen"];
+  function bigCard(idx, label, sign, meaning) {
+    return '<div class="fbig__c"><span class="fbig__g zsign" style="--zs:url(\'assets/signs/' + SIGNS[idx].id + '.png\')" aria-hidden="true"></span>' +
+      '<span class="fbig__k">' + label + '</span><span class="fbig__v">' + sign + '</span><span class="fbig__d">' + meaning + '</span></div>';
+  }
 
   var lastFull = null;
   function renderFull(fc) {
     lastFull = fc;
-    setText("fcSystem", "Tropical · Western astrology · whole-sign houses");
+    var sun = fc.bodies[0], moon = fc.bodies[1];
+    $("fcBig").innerHTML =
+      bigCard(sun.signIndex, "Sun", sun.sign, "who you are at the core") +
+      bigCard(moon.signIndex, "Moon", moon.sign, "how you feel and self-soothe") +
+      bigCard(fc.ascendant.index, "Rising", fc.ascendant.sign, "how you meet the world");
     $("fcAngles").innerHTML =
       '<span>Ascendant <b>' + fc.ascendant.sign + " " + fc.ascendant.deg.toFixed(1) + '°</b></span>' +
       '<span>Midheaven <b>' + fc.mc.sign + " " + fc.mc.deg.toFixed(1) + '°</b></span>';
@@ -134,15 +108,32 @@
         '<span class="prow__house">' + ordinal(b.house) + " house</span></div>";
     }).join("");
     $("fcHouses").innerHTML = fc.houses.map(function (h) {
-      return '<div class="hrow"><span class="hrow__n">' + ordinal(h.num) + ' house</span><span class="hrow__s">' + h.sign + "</span></div>";
+      return '<div class="hrow"><span class="hrow__n">' + ordinal(h.num) + ' <span class="hrow__area">' + HOUSE_AREAS[h.num - 1] + '</span></span><span class="hrow__s">' + h.sign + "</span></div>";
     }).join("");
   }
-  var revealFull = $("revealFull");
-  if (revealFull) revealFull.addEventListener("click", function () {
-    if (!lastDate || !lastPlace) { toast("Calculate your chart first."); return; }
-    try { renderFull(window.TCRChart.computeFullChart(lastDate, lastPlace)); openFull(); }
-    catch (e) { toast("Couldn't build the full chart. Try again."); }
-  });
+
+  if (chartForm) {
+    chartForm.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var m = parseInt(bMonth.value, 10), d = parseInt(bDay.value, 10), yr = parseInt(bYear.value, 10);
+      if (!yr || yr < 1900 || yr > 2030) { toast("Enter a birth year between 1900 and 2030."); bYear.focus(); return; }
+      var tm = (bTime.value || "12:00").split(":"), h = parseInt(tm[0], 10) || 0, min = parseInt(tm[1], 10) || 0;
+      var date = { y: yr, m: m, d: d, h: h, min: min };
+      function reveal(place) {
+        lastPlace = place; lastDate = date; chartBtn.disabled = false; chartBtn.textContent = "Show me my chart";
+        if (calcLoading) { calcLoading.hidden = false; calcLoading.scrollIntoView({ behavior: "smooth", block: "center" }); }
+        setTimeout(function () {
+          try { renderFull(window.TCRChart.computeFullChart(date, place)); if (calcLoading) calcLoading.hidden = true; openFull(); }
+          catch (e) { if (calcLoading) calcLoading.hidden = true; toast("Couldn't build your chart. Check the details and try again."); }
+        }, 950);
+      }
+      if (selectedPlace) { reveal(selectedPlace); return; }
+      var q = bPlace.value.trim();
+      if (q.length < 2) { toast("Add your birth city so we can place your Rising sign."); bPlace.focus(); return; }
+      chartBtn.disabled = true; chartBtn.textContent = "Finding city…";
+      window.TCRChart.geocode(q).then(function (list) { if (!list.length) { chartBtn.disabled = false; chartBtn.textContent = "Show me my chart"; toast("Couldn't find that city. Try a nearby larger city."); return; } selectedPlace = list[0]; bPlace.value = list[0].label; reveal(list[0]); });
+    });
+  }
 
   // save chart (email now; Google optional via config.googleClientId)
   function chartSummary() { var fc = lastFull; if (!fc) return ""; return fc.bodies.map(function (b) { return b.name + " " + b.sign + " " + b.deg.toFixed(1) + (b.retro ? "R" : "") + " H" + b.house; }).join(" | ") + " | Asc " + fc.ascendant.sign + " | MC " + fc.mc.sign; }

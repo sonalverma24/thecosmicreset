@@ -6,7 +6,7 @@
   <title>The Cosmic Reset · Personalized astrology guides</title>
   <meta name="description" content="Personalized astrology guides built from your exact birth chart. Your Moon, Rising and houses decoded into career, love, health and money. Delivered worldwide in 24 hours." />
   <link rel="icon" href="assets/favicon.png" type="image/png" />
-  <link rel="stylesheet" href="styles.css?v=5" />
+  <link rel="stylesheet" href="styles.css?v=6" />
 </head>
 <body>
 
@@ -76,14 +76,9 @@
     <section class="calc" id="calc" aria-labelledby="calc-title">
       <div class="wrap calc__inner">
         <p class="eyebrow eyebrow--dark">Free birth chart calculator</p>
-        <h2 id="calc-title" class="statement statement--sm">You know your zodiac sign.</h2>
-        <p class="calc__ordo">Or do you?</p>
-        <p class="calc__lead">You may have called yourself an Aries, Gemini or Scorpio your whole life. Enter your birth details and see what your chart actually calculates for you.</p>
-        <p class="calc__lead calc__lead--em"><strong>Your result might surprise you.</strong></p>
-        <div class="calc__topcta"><button type="button" class="btn btn--yellow" id="calcScroll">Calculate my chart</button></div>
+        <h2 id="calc-title" class="statement statement--sm">Tell us when you were born.</h2>
 
         <form class="calc__form" id="chartForm" novalidate>
-          <p class="calc__formhead">First, tell us when you were born.</p>
           <fieldset class="calc__group">
             <legend>Date of birth</legend>
             <div class="calc__row">
@@ -116,31 +111,6 @@
           <p class="calc__note">Your birth details are being turned into your personal chart.</p>
         </div>
 
-        <div class="result" id="chartResult" hidden>
-          <p class="result__eyebrow">Result</p>
-          <p class="result__label">Your Sun sign is</p>
-          <div class="result__sign"><span class="result__glyph zsign" id="rSunG" aria-hidden="true"></span><span class="result__name" id="rSun">SCORPIO</span></div>
-          <p class="result__desc">This is the part of astrology you probably already know. It describes some of your strongest underlying tendencies, what pulls you forward, what matters deeply to you and the kind of person you naturally grow into.</p>
-
-          <h3 class="result__h">But your Sun sign is only the beginning.</h3>
-          <p class="result__p">There are other parts of your chart that can explain why you can feel completely different from people who share your zodiac sign.</p>
-          <div class="result__grid">
-            <div class="rcard"><span class="rcard__k">Your Moon</span><span class="rcard__v" id="rMoon"></span><span class="rcard__d">How you process emotions, react instinctively and find comfort.</span></div>
-            <div class="rcard"><span class="rcard__k">Your Rising</span><span class="rcard__v" id="rRise"></span><span class="rcard__d">How you approach life, new situations and the world around you.</span></div>
-            <div class="rcard"><span class="rcard__k">Your relationships</span><span class="rcard__d">How you connect, attach, communicate and handle closeness.</span></div>
-            <div class="rcard"><span class="rcard__k">Your career and money</span><span class="rcard__d">How you work, what motivates you and the patterns that shape ambition and direction.</span></div>
-            <div class="rcard"><span class="rcard__k">Your personal patterns</span><span class="rcard__d">The behaviours you repeat, the situations you keep finding yourself in and what may help you respond differently.</span></div>
-          </div>
-
-          <h3 class="result__h">This is where astrology gets personal.</h3>
-          <p class="result__p">Your chart is not a horoscope written for millions of people. It is a map built from your birth details. Explore the parts of your life you want to understand better.</p>
-          <div class="result__cta">
-            <div class="result__ctacol"><a class="btn btn--yellow" href="shop.html">Explore my personalized guides</a><span class="result__price">Personalized guides from $19</span></div>
-            <div class="result__ctacol"><a class="btn btn--purple" href="shop.html">Shop all guides</a><span class="result__price">Guides from $1</span></div>
-          </div>
-
-          <button type="button" class="result__full" id="revealFull">Click to reveal your full birth chart <span aria-hidden="true">→</span></button>
-        </div>
       </div>
     </section>
 
@@ -236,7 +206,8 @@
     <div class="modal__card fchart__card">
       <button class="modal__x" data-fclose aria-label="Close">×</button>
       <p class="modal__eyebrow" id="fcSystem">Tropical · Western astrology</p>
-      <h3 class="modal__title">Your full birth chart</h3>
+      <h3 class="modal__title">Your birth chart</h3>
+      <div class="fbig" id="fcBig"></div>
       <div class="fchart__angles" id="fcAngles"></div>
       <div class="fchart__cols">
         <div>
@@ -244,28 +215,19 @@
           <div class="ptable" id="fcPlanets"></div>
         </div>
         <div>
-          <h4 class="fchart__h">Houses <span class="fchart__hsub">whole sign</span></h4>
+          <h4 class="fchart__h">Houses <span class="fchart__hsub">areas of life</span></h4>
           <div class="htable" id="fcHouses"></div>
         </div>
       </div>
-      <div class="fchart__save">
-        <p class="fchart__savehead">Save your chart</p>
-        <p class="modal__hint">Keep your chart on file so you can come back to it anytime.</p>
-        <div id="fcGoogle" class="fchart__google"></div>
-        <div class="fchart__emailsave">
-          <input id="fcEmail" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com" />
-          <button class="btn btn--yellow btn--sm" id="fcSaveBtn" type="button">Save my chart</button>
-        </div>
-        <p class="modal__note" id="fcSaveNote"></p>
-      </div>
+      <a class="btn btn--yellow fchart__cta" href="shop.html">Go deeper with a personalized guide</a>
     </div>
   </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-  <script src="config.js?v=5"></script>
-  <script src="chart.js?v=5"></script>
-  <script src="app.js?v=5"></script>
+  <script src="config.js?v=6"></script>
+  <script src="chart.js?v=6"></script>
+  <script src="app.js?v=6"></script>
 </body>
 </html>

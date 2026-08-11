@@ -300,8 +300,8 @@
 
     return {
       system: "tropical",
-      ascendant: { lon: ascS.lon, sign: ascS.name, glyph: ascS.glyph, deg: ascS.deg },
-      mc: { lon: mcS.lon, sign: mcS.name, glyph: mcS.glyph, deg: mcS.deg },
+      ascendant: { lon: ascS.lon, sign: ascS.name, glyph: ascS.glyph, deg: ascS.deg, index: ascS.index },
+      mc: { lon: mcS.lon, sign: mcS.name, glyph: mcS.glyph, deg: mcS.deg, index: mcS.index },
       bodies: bodies, houses: houses
     };
   }
