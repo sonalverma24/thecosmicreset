@@ -101,7 +101,11 @@ window.TCR_SHOP = (function () {
     ["pisces", "Pisces", "Empathy, imagination and soft boundaries."]
   ];
   /* which products are actually published (buyable). The rest show Coming soon. */
-  var LIVE = { "pk-aries": 1, "pk-taurus": 1, "pb-sagittarius": 1 };
+  var LIVE = {
+    "pk-aries": 1, "pk-taurus": 1, "pk-gemini": 1, "pk-cancer": 1, "pk-leo": 1,
+    "pk-virgo": 1, "pk-libra": 1, "pk-scorpio": 1, "pk-sagittarius": 1,
+    "pb-sagittarius": 1
+  };
   var list = [];
   SIGNS12.forEach(function (s) { list.push({ id: "pk-" + s[0], section: "pocket", cat: "Pocket Guides", title: "The " + s[1] + " Pocket Guide", price: 1, personalized: false, sign: s[0], desc: s[2], available: !!LIVE["pk-" + s[0]] }); });
   SIGNS12.forEach(function (s) { list.push({ id: "pb-" + s[0], section: "playbook", cat: "Astro Playbooks", title: "The " + s[1] + " Playbook", price: 5, personalized: false, sign: s[0], desc: s[2], available: !!LIVE["pb-" + s[0]] }); });
