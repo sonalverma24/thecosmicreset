@@ -12,8 +12,10 @@
     new IntersectionObserver(function (es) { es.forEach(function (e) { nav.classList.toggle("is-scrolled", e.intersectionRatio < 0.35); }); }, { threshold: [0, 0.35, 1] }).observe(heroEl);
   }
 
-  // month labels
+  // month labels + hero hook (data-driven so each month is a one-file edit)
   Array.prototype.forEach.call(document.querySelectorAll("[data-month]"), function (el) { el.textContent = H.month; });
+  var htEl = $("heroTitle"); if (htEl && H.heroTitle) htEl.textContent = H.heroTitle;
+  var hsEl = $("heroSub"); if (hsEl && H.heroSub) hsEl.textContent = H.heroSub;
 
   /* ---------- section icons (inline line SVG) ---------- */
   function ico(kind) {

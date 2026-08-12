@@ -10,7 +10,9 @@ window.TCR_HOROSCOPE = {
   month: "August 2026",
   monthShort: "August",
   updated: "2026-08-01",
-  intro: "No fortune-cookie lines here. This is your month read from where the planets actually are, told the way a friend who knows astrology would tell you over coffee.",
+  /* Hero hook. Lead with the month's real news, not meta-talk. */
+  heroTitle: "Big luck, two moons, and a fresh start.",
+  heroSub: "Jupiter's rare 12-year luck sits in Leo all August, a New Moon on the 12th opens fresh starts, and a Full Moon on the 28th clears the air. Pick your sign to see what it means for your love, career, health and lucky dates.",
 
   /* The real sky this month (from the site's own engine). Shown as a strip. */
   sky: [
