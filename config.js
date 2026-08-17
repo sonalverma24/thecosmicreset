@@ -104,6 +104,7 @@ window.TCR_SHOP = (function () {
   var LIVE = {
     "pk-aries": 1, "pk-taurus": 1, "pk-gemini": 1, "pk-cancer": 1, "pk-leo": 1,
     "pk-virgo": 1, "pk-libra": 1, "pk-scorpio": 1, "pk-sagittarius": 1,
+    "pk-capricorn": 1, "pk-aquarius": 1, "pk-pisces": 1,
     "pb-sagittarius": 1
   };
   var list = [];

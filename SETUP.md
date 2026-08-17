@@ -23,11 +23,32 @@ Razorpay account needs **International Payments** enabled (Dashboard → Setting
 If your account is India-only, set `currency: "INR"` in `config.js` and change the
 prices in the `TCR_PRODUCTS` list to rupees.
 
-### Delivering the PDF after payment
-For now, on a successful payment the buyer sees a confirmation and you fulfil the file
-(e.g. email it). To auto-deliver, host each PDF and paste its link into the product's
-`download:` field in `config.js`, and it opens automatically after payment. *(Note: a bare
-link is unprotected; for paid-only delivery we can add a tiny backend later.)*
+### Delivering the PDF after payment (automatic)
+On a successful payment the buyer is emailed the matching PDF automatically. This runs
+inside the same Apps Script that logs orders — no new service.
+
+**How it works:** each order sends the product title (e.g. *The Aries Pocket Guide*).
+The script looks in a Google Drive folder for a file named exactly `<product>.pdf`
+(`The Aries Pocket Guide.pdf`) and emails it as an attachment. Made-to-order guides
+(Full Chart Reading, Love & Relationships, …) have no matching PDF, so they are never
+auto-sent — you still create and email those by hand within 24h.
+
+**Set it up (one time):**
+1. Put the Pocket Guide PDFs in a Drive folder. File names must match product titles
+   exactly + `.pdf` (they already do).
+2. Copy the folder ID from its URL (`…/folders/<ID>`) and paste it into
+   `GUIDES_FOLDER_ID` at the top of `email-to-sheet.gs`.
+3. **Recommended — verify payments before delivery:** in Apps Script →
+   Project Settings → Script properties, add `RAZORPAY_KEY_ID` and
+   `RAZORPAY_KEY_SECRET` (secret from Razorpay → Settings → API Keys). Then the file
+   is released only when Razorpay confirms the payment is real and captured. Skip this
+   and files still send, just without the fraud check.
+4. Redeploy the script (Manage deployments → edit → New version → Deploy). The `/exec`
+   URL stays the same, so `config.js` needs no change. Authorise the new Gmail + Drive
+   permissions when prompted.
+
+A **Delivered** column in the Orders tab shows `Sent` or the reason it wasn't
+(e.g. *made-to-order*, *payment unverified*).
 
 ---
 

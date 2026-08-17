@@ -8,7 +8,7 @@
   <link rel="icon" href="assets/favicon.png" type="image/png" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9359894195680047"
      crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="styles.css?v=14" />
+  <link rel="stylesheet" href="styles.css?v=15" />
 </head>
 <body>
 
@@ -74,11 +74,12 @@
 
       <div class="modal__birth" id="mBirth" hidden>
         <p class="modal__hint">Enter your birth details so we build the correct guide for your chart.</p>
+        <div class="field"><label for="mName">Full name</label><input id="mName" type="text" autocomplete="name" placeholder="The name for your reading" /></div>
         <div class="mrow">
           <div class="field"><label for="mMonth">Month</label><select id="mMonth"></select></div>
           <div class="field"><label for="mDay">Day</label><select id="mDay"></select></div>
           <div class="field"><label for="mYear">Year</label><input id="mYear" type="number" inputmode="numeric" min="1900" max="2030" placeholder="1995" /></div>
-          <div class="field"><label for="mTime">Time</label><input id="mTime" type="time" value="12:00" /></div>
+          <div class="field"><label for="mTime">Time <span class="field__opt">(if known)</span></label><input id="mTime" type="time" /></div>
         </div>
         <div class="field field--place">
           <label for="mPlace">Birth city</label>
@@ -124,8 +125,8 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-  <script src="config.js?v=14"></script>
-  <script src="chart.js?v=14"></script>
-  <script src="shop.js?v=14"></script>
+  <script src="config.js?v=15"></script>
+  <script src="chart.js?v=15"></script>
+  <script src="shop.js?v=15"></script>
 </body>
 </html>

@@ -124,7 +124,7 @@
     if (id) { postOrder({ email: email, product: p.title, price: p.price }); renderRzpButton($("smRzp"), id); $("smBuy").hidden = true; $("smNote").textContent = "Your email is saved. Complete your " + sym() + p.price + " payment below."; return; }
     openRazorpay(p.price, p.title + " · " + sym() + p.price, order, function (resp) {
       postOrder({ email: email, product: p.title, price: p.price, payment_id: (resp && resp.razorpay_payment_id) || "" });
-      closeSign(); toast("Payment received ✦ your <b>" + p.title + "</b> is on its way to " + email + ".", 6000);
+      closeSign(); toast("Payment received ✦ your <b>" + p.title + "</b> is on its way to " + email + ". Check your inbox (and spam) for the PDF.", 7000);
     });
   });
   function setActive(key) {
@@ -142,7 +142,7 @@
   var modal = $("buyModal"), mBirth = $("mBirth"), current = null;
   var MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
   var DAYS_IN = [31,29,31,30,31,30,31,31,30,31,30,31];
-  var mMonth = $("mMonth"), mDay = $("mDay"), mYear = $("mYear"), mTime = $("mTime"), mPlace = $("mPlace"), mPlaceResults = $("mPlaceResults"), mEmail = $("mEmail");
+  var mName = $("mName"), mMonth = $("mMonth"), mDay = $("mDay"), mYear = $("mYear"), mTime = $("mTime"), mPlace = $("mPlace"), mPlaceResults = $("mPlaceResults"), mEmail = $("mEmail");
 
   MONTHS.forEach(function (n, i) { var o = document.createElement("option"); o.value = String(i + 1); o.textContent = n; mMonth.appendChild(o); });
   function fillDays() { var m = parseInt(mMonth.value, 10) || 1, max = DAYS_IN[m - 1], cur = parseInt(mDay.value, 10) || 1; mDay.innerHTML = ""; for (var d = 1; d <= max; d++) { var o = document.createElement("option"); o.value = String(d); o.textContent = String(d); mDay.appendChild(o); } mDay.value = String(Math.min(cur, max)); }
@@ -185,10 +185,14 @@
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { toast("Enter a valid delivery email."); mEmail.focus(); return; }
     var order = { email: email, product: current.title, price: current.price };
     if (current.personalized) {
+      var name = (mName.value || "").trim();
+      if (name.length < 2) { toast("Add the name for the reading."); mName.focus(); return; }
       var yr = parseInt(mYear.value, 10);
       if (!yr || yr < 1900 || yr > 2030) { toast("Enter your birth year (1900 to 2030)."); mYear.focus(); return; }
       if (!selPlace && mPlace.value.trim().length < 2) { toast("Add your birth city."); mPlace.focus(); return; }
-      order.birth = mYear.value + "-" + mMonth.value + "-" + mDay.value + " " + (mTime.value || "12:00");
+      var t = (mTime.value || "").trim();
+      order.name = name;
+      order.birth = mYear.value + "-" + mMonth.value + "-" + mDay.value + (t ? " " + t : " (time not provided)");
       order.place = selPlace ? selPlace.label : mPlace.value.trim();
     }
 
